@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>zjb</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  	<listener>
+	    <listener-class>com.youwei.zjb.StartUpListener</listener-class>
+	</listener>
+	<listener>
+	    <listener-class>org.bc.web.RequestListener</listener-class>
+	</listener>
+	<session-config>
+	  <session-timeout>1440</session-timeout>
+	 </session-config>
+	 
+<!--   	<servlet> -->
+<!--         <servlet-name>grand</servlet-name> -->
+<!--         <servlet-class>com.youwei.zjb.GrandServlet</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 	    <servlet-name>grand</servlet-name> -->
+<!-- 	    <url-pattern>/c/*</url-pattern> -->
+<!-- 	    <url-pattern>/phone/*</url-pattern> -->
+<!-- 	    <url-pattern>*.jsp</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	
+	<servlet>
+        <servlet-name>view</servlet-name>
+        <servlet-class>com.youwei.zjb.ViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>view</servlet-name>
+	    <url-pattern>/v/*</url-pattern>
+	</servlet-mapping>
+	
+<!-- 	<servlet> -->
+<!--         <servlet-name>fileup</servlet-name> -->
+<!--         <servlet-class> com.youwei.zjb.files.FileUploadServlet</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 	    <servlet-name>fileup</servlet-name> -->
+<!-- 	    <url-pattern>/file/upload/*</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	
+<!-- 	<servlet> -->
+<!--         <servlet-name>filedown</servlet-name> -->
+<!--         <servlet-class> com.youwei.zjb.files.FileDownloadServlet</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 	    <servlet-name>filedown</servlet-name> -->
+<!-- 	    <url-pattern>/file/download/*</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	
+	<servlet>
+        <servlet-name>weixin</servlet-name>
+        <servlet-class> com.youwei.zjb.WeiXinServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>weixin</servlet-name>
+	    <url-pattern>/weixin/*</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>session</filter-name>
+		<filter-class>com.youwei.zjb.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>session</filter-name>
+		<url-pattern>/c/*</url-pattern>
+		<url-pattern>*.html</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+    	<filter-name>grandFilter</filter-name>
+    	<filter-class>org.bc.web.GrandFilter</filter-class>
+    	<init-param>
+    		<param-name>encoding</param-name>
+    		<param-value>utf-8</param-value>
+    	</init-param>
+    </filter>
+    <filter-mapping>
+    	<filter-name>grandFilter</filter-name>
+    	<url-pattern>*.jsp</url-pattern>
+    	<url-pattern>/c/*</url-pattern>
+    </filter-mapping>
+</web-app>
