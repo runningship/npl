@@ -3,15 +3,32 @@ package org.bc.npl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bc.sdak.MutilSessionFactoryBuilder;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.jsp.JspFactory;
+
 import org.bc.sdak.SQL2008Dialect;
 import org.bc.sdak.SessionFactoryBuilder;
-import org.bc.sdak.SessionFactoryMapper;
+import org.bc.web.ModuleManager;
+import org.bc.web.PublicFieldSupportingELResolver;
 import org.hibernate.cfg.AvailableSettings;
 
-public class StartUpListener{
+public class StartUpListener implements ServletContextListener{
 
-	
+	public void contextDestroyed(ServletContextEvent arg0) {
+	}
+
+	public void contextInitialized(ServletContextEvent event) {
+		initDataSource();
+		initModule();
+		JspFactory.getDefaultFactory()
+        .getJspApplicationContext(event.getServletContext())
+        .addELResolver(new PublicFieldSupportingELResolver());
+	}
+
+	private void initModule() {
+		ModuleManager.add("org.bc.rhino");
+	}
 
 	public static synchronized void initDataSource(){
 		Map<String,String> settings = new HashMap<String , String>();
