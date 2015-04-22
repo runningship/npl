@@ -11,12 +11,11 @@ function doSave(){
 	var a=$('form[name=form1]').serialize();
     BC.ajax({
         type: 'POST',
-        url: 'c/base/cmd/add',
+        url: 'c/test/exec',
         dataType:'json',
         data:a,
         mysuccess: function(data){
-           $('#content').val('');
-           $('#name').val('');
+           $('#conts').val('');
            alert(data.result);
         }
     });
@@ -26,9 +25,7 @@ function doSave(){
 </head>
 <body>
 <form name="form1" onsubmit="doSave();return false;">
-方法名:<input name="name"  id="name"/>
-<br /><br />
-方法体:<textarea rows="20" cols="100" id="content" name="conts"></textarea>
+处理方式:<textarea rows="10" cols="60" id="conts" name="conts"></textarea>
 <input type="submit"/>
 </form>
 </body>

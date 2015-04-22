@@ -7,20 +7,20 @@ import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.WebMethod;
 
-@Module(name="/base/cmd")
-public class BasicCommandService {
+@Module(name="/rule")
+public class RuleService {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
 	@WebMethod
-	public ModelAndView add(String name,String conts){
+	public ModelAndView add(String name,String action){
 		ModelAndView mv = new ModelAndView();
 		NplFunction po = dao.getUniqueByKeyValue(NplFunction.class, "name", name);
 		if(po==null){
 			po = new NplFunction();
 			po.name = name;
 		}
-		po.conts = conts.replace(name, name); 
+		po.conts = action.replace(name, name); 
 		dao.saveOrUpdate(po);
 		mv.data.put("result", "success");
 		return mv;

@@ -8,7 +8,7 @@
     <driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>  
     <driver-properties>  
         <property name="user" value="sa"/>  
-        <property name="password" value="123456"/>  
+        <property name="password" value="1qaz2wsx"/>  
     </driver-properties>  
     <house-keeping-test-sql>select CURRENT_TIMESTAMP</house-keeping-test-sql> 　　  
     <house-keeping-sleep-time>90000</house-keeping-sleep-time> 　　  

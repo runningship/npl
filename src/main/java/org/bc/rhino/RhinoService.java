@@ -12,19 +12,19 @@ public class RhinoService {
 
 	private ScriptEngineManager sm = new ScriptEngineManager();
 	private ScriptEngine engine = sm.getEngineByName("JavaScript");
-	
+	Bindings bindings = engine.createBindings();
 	public RhinoService(){
 		prepareBindings();
 	}
 	private  Bindings prepareBindings() {
 		
-		Bindings bindings = engine.createBindings();
 		bindings.put("dao", SimpDaoTool.getGlobalCommonDaoService());
 		bindings.put("engine", engine);
 		engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
 		return bindings;
 	}
 	
+	@SuppressWarnings("restriction")
 	public Object exec(String script){
 		Object result="";
 		try {
@@ -38,5 +38,9 @@ public class RhinoService {
 		}
 		System.out.println("result of action is : "+result);
 		return result;
+	}
+	
+	public void put(String key , Object val){
+		bindings.put(key, val);
 	}
 }
