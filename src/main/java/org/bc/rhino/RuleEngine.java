@@ -57,7 +57,7 @@ public class RuleEngine {
 			return mv;
 		}
 		
-		return exec(String.valueOf(conts));
+		return exec(String.valueOf(result));
 	}
 	
 	private Map<String , String> getMatchRule(String conts){
