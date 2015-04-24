@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.bc.npl.StartUpListener;
 import org.bc.npl.entity.Word;
 import org.bc.sdak.SimpDaoTool;
 
@@ -11,46 +12,41 @@ import org.bc.sdak.SimpDaoTool;
 public class Lexer {
 
 	public static final String ExprSeprator = "-";
-//	public static void main(String[] args){
-//		StartUpListener.initDataSource();
-//		String str = "我有一部新手机";
-//		Lexer p = new Lexer();
-//		Expr expr = p.run(str);
-//		if(expr==null){
-//			return;
-//		}
-//		List<String> results = p.getResult(expr);
-//		for(String r : results){
-//			System.out.println(r);
-//		}
-//	}
+	public static void main(String[] args){
+		StartUpListener.initDataSource();
+		String str = "我有一部新手机";
+		Lexer p = new Lexer();
+		List<Expr> list = p.nextExpr(str);
+		List<String> results = p.getResult(list);
+		for(String r : results){
+			System.out.println(r);
+		}
+	}
+	
 	
 	/**
 	 * 返回所有的分词可能性
-	 * @param head
-	 * @return
 	 */
-	public List<String> getResult(Expr head){
+	private List<String> getResult(List<Expr> exprs){
 		List<String> results = new ArrayList<String>();
-		if(head.next.isEmpty()){
-			results.add(ExprSeprator+head.text);
-		}else{
-			for(Expr next : head.next){
-				for(String str : getResult(next)){
-					results.add(ExprSeprator+head.text+str);
+		if(exprs == null){
+			return results;
+		}
+		for(Expr expr : exprs){
+			if(expr.next.isEmpty()){
+				results.add(expr.text);
+			}else{
+				for(String str : getResult(expr.next)){
+					results.add(expr.text+ExprSeprator+str);
 				}
 			}
 		}
 		return results;
 	}
-	public Expr run(String str){
-		if(StringUtils.isEmpty(str)){
-			return null;
-		}
-		Expr head = new Expr();
-		head.text = "";
-		head.next = nextExpr(str);
-		return head;
+
+	public List<String> exec(String str){
+		List<Expr> exprs = nextExpr(str);
+		return getResult(exprs);
 	}
 
 	private List<Word> getWordStartWith(String head) {

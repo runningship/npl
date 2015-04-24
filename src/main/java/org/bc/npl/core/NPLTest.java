@@ -16,11 +16,7 @@ public class NPLTest {
 		String str = "小明的爸爸有一部新的手机";
 //		String str = "三是数量";
 		Lexer p = new Lexer();
-		Expr expr = p.run(str);
-		if(expr==null){
-			return;
-		}
-		List<String> lexerResults = p.getResult(expr);
+		List<String> lexerResults = p.exec(str);
 		for(String r : lexerResults){
 			System.out.println(r);
 		}
