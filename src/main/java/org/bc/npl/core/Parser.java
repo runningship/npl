@@ -6,7 +6,7 @@ import org.bc.npl.entity.Oper;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
 
-//生成词法树Block
+//生成词法树AST
 public class Parser {
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
