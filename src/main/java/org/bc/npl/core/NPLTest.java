@@ -13,7 +13,7 @@ public class NPLTest {
 	public static void main(String[] args){
 		StartUpListener.initDataSource();
 //		String str = "小米手机被黄牛抬价了很多";
-		String str = "小明的爸爸有一部新的手机";
+		String str = "小明有两朵小红花";
 //		String str = "三是数量";
 		Lexer p = new Lexer();
 		List<String> lexerResults = p.exec(str);

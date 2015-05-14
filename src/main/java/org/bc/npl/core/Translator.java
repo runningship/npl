@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSONObject;
 
 import org.bc.npl.entity.Aggregation;
+import org.bc.npl.util.DataHelper;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.SimpDaoTool;
 import org.bc.sdak.TransactionalServiceHelper;
@@ -57,8 +58,19 @@ public class Translator {
 		}else if("是".equals(block.text.get(0))){
 			return visitIs(block);
 		}else{
+			if(DataHelper.isSubConceptOf(block.text.get(0), "单位")){
+				return visiUnit(block);
+			}
 			return null;
 		}
+	}
+
+	private JSONObject visiUnit(Block block) {
+		JSONObject left = visit(block.left);
+		JSONObject right = visit(block.right);
+		right.put("left", left);
+		right.put("oper", block.text.get(0));
+		return right;
 	}
 
 	private JSONObject visitIs(Block block) {
@@ -79,6 +91,7 @@ public class Translator {
 		if(right==null){
 			System.out.println("的字后面没有内容改怎么处理呢?");
 		}
+		//TODO 的没有左边或右边内容时，尝试补全
 		for(Object key : left.keySet()){
 			//找到对应的条件类别，设置到right对象上
 			if("指代".equals(key)){

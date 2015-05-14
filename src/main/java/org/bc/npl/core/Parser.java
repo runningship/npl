@@ -1,6 +1,7 @@
 package org.bc.npl.core;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bc.npl.entity.Oper;
 import org.bc.sdak.CommonDaoService;
@@ -36,11 +37,25 @@ public class Parser {
 		int priority = Integer.MAX_VALUE;
 		for(int i=0;i<words.size();i++){
 			Oper oper = dao.getUniqueByKeyValue(Oper.class, "text", words.get(i));
+			//操作符可能是一个集合
+			List<Map> list2 = dao.listAsMap("select op.priority as priority from Oper op , Aggregation aggr where op.text=aggr.sets and elem=? " , words.get(i));
 			if(oper!=null){
 				if(oper.priority<=priority){
 					priority = oper.priority;
 					pos = i;
+					break;
 				}
+				
+			}else{
+				if(!list2.isEmpty()){
+					int pri = (int) list2.get(0).get("priority");
+					if(pri<=priority){
+						priority = pri;
+						pos = i;
+						break;
+					}
+				}
+				
 			}
 		}
 		return pos;

@@ -16,6 +16,8 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
+import org.bc.npl.entity.Aggregation;
+import org.bc.sdak.SimpDaoTool;
 import org.bc.sdak.utils.LogUtil;
 import org.bc.web.ThreadSession;
 import org.jsoup.Jsoup;
@@ -37,53 +39,11 @@ public class DataHelper {
 		format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
 	}
 	
-	public static String toPinyin(String hanzi){
-		try {
-			String pinyin="";
-			for(int i=0;i<hanzi.length();i++){
-				String[] arr = PinyinHelper.toHanyuPinyinStringArray(hanzi.charAt(i), format);
-				if(arr!=null && arr.length>0){
-					pinyin+=arr[0];
-				}else{
-					LogUtil.warning("汉字["+hanzi.charAt(i)+"]转拼音失败,");
-					continue;
-				}
-			}
-			return pinyin;
-		} catch (BadHanyuPinyinOutputFormatCombination e) {
-			LogUtil.log(Level.WARN, "汉字["+hanzi+"]转拼音失败", e);
+	public static boolean isSubConceptOf(String child , String text){
+		List<Map> list = SimpDaoTool.getGlobalCommonDaoService().listAsMap("select elem as elem , sets as sets from Aggregation aggr where elem=? and sets=? " , child , text );
+		if(list==null || list.isEmpty()){
+			return false;
 		}
-		return "";
-	}
-	
-	public static String toPinyinShort(String hanzi){
-		try {
-			String pinyin="";
-			for(int i=0;i<hanzi.length();i++){
-				String[] arr = PinyinHelper.toHanyuPinyinStringArray(hanzi.charAt(i), format);
-				if(arr!=null && arr.length>0){
-					if(StringUtils.isNotEmpty(arr[0])){
-						pinyin+=arr[0].charAt(0);
-					}
-				}else{
-					LogUtil.warning("汉字["+hanzi.charAt(i)+"]转拼音失败,");
-					continue;
-				}
-			}
-			return pinyin;
-		} catch (BadHanyuPinyinOutputFormatCombination e) {
-			LogUtil.log(Level.WARN, "汉字["+hanzi+"]转拼音失败", e);
-		}
-		return "";
-	}
-	
-	public static List<String> getFilterWords(){
-		try {
-			List<String> lines = FileUtils.readLines(new File(ThreadSession.getHttpSession().getServletContext().getRealPath("/")+File.separator+"filter-words.txt"), "utf8");
-			return lines;
-		} catch (IOException e) {
-			LogUtil.log(Level.WARN, "load filter words failed ", e);
-			return new ArrayList<String>();
-		}
+		return true;
 	}
 }
