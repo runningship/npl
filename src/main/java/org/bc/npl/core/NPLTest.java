@@ -34,6 +34,7 @@ public class NPLTest {
 		}
 //		List<OperMatch> opers = parser.matchOper(words.toArray(new String[]{}));
 		Block block = parser.buildBlock(words);
+		//TODO 优化AST，理想情况下，每个节点只有一个token(即一个词或词组)
 		System.out.println(block.toString());
 		Translator trans = new Translator();
 		JSONObject jobj = trans.visit(block);
