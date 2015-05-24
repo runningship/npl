@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
@@ -16,6 +17,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
+import org.bc.npl.core.Block;
 import org.bc.npl.entity.Aggregation;
 import org.bc.sdak.SimpDaoTool;
 import org.bc.sdak.utils.LogUtil;
@@ -45,5 +47,17 @@ public class DataHelper {
 			return false;
 		}
 		return true;
+	}
+	
+	public static JSONObject toDrawableTree(Block block){
+		JSONObject root = new JSONObject();
+		root.put("text", block.text);
+		if(block.left!=null){
+			root.put("left", toDrawableTree(block.left));
+		}
+		if(block.right!=null){
+			root.put("right", toDrawableTree(block.right));
+		}
+		return root;
 	}
 }

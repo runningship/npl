@@ -29,36 +29,33 @@ public class Translator {
 
 	private JSONObject visitLeaf(Block block) {
 		JSONObject jobj = new JSONObject();
-		for(int i=0;i<block.text.size();i++){
-			String str = block.text.get(i);
-			//find something about str
+		String str = block.text;
+		//find something about str
 //			jobj.put("text", str);
-			String aggr = BasicConcept.findRootAggregation(str);
-			if(aggr==null){
-				aggr = BasicConcept.findSet(str);
-				if(aggr!=null){
-					jobj.put("set", aggr);
-				}else{
-					jobj.put(i+"", str);
-				}
+		String aggr = BasicConcept.findRootAggregation(str);
+		if(aggr==null){
+			aggr = BasicConcept.findSet(str);
+			if(aggr!=null){
+				jobj.put("set", aggr);
 			}else{
-				//set elem
-				jobj.put(aggr, str);
+				jobj.put("oh", str);
 			}
-			
+		}else{
+			//set elem
+			jobj.put(aggr, str);
 		}
 		return jobj;
 	}
 
 	private JSONObject visitOper(Block block) {
-		if("的".equals(block.text.get(0))){
+		if("的".equals(block.text)){
 			return visitOf(block);
-		}else if("有".equals(block.text.get(0))){
+		}else if("有".equals(block.text)){
 			return visitHas(block);
-		}else if("是".equals(block.text.get(0))){
+		}else if("是".equals(block.text)){
 			return visitIs(block);
 		}else{
-			if(DataHelper.isSubConceptOf(block.text.get(0), "单位")){
+			if(DataHelper.isSubConceptOf(block.text, "单位")){
 				return visiUnit(block);
 			}
 			return null;
@@ -69,7 +66,7 @@ public class Translator {
 		JSONObject left = visit(block.left);
 		JSONObject right = visit(block.right);
 		right.put("left", left);
-		right.put("oper", block.text.get(0));
+		right.put("oper", block.text);
 		return right;
 	}
 

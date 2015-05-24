@@ -1,5 +1,6 @@
 package org.bc.npl.core;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +16,22 @@ public class Parser {
 		int index = getNextOper(words);
 		Block block = new Block();
 		if(index<=-1){
-			block.text.addAll(words);
-			return block;
+			if(words.size()<=1){
+				block.text = words.get(0);
+				return block;
+			}else{
+				List<String> tmp = new ArrayList<String>();
+				for(String w : words){
+					tmp.add(w);
+					tmp.add("的");
+				}
+				//删除最后一个的
+				tmp.remove(tmp.size()-1);
+				words = tmp;
+				return buildBlock(words);
+			}
 		}
-		 block.text.add(words.get(index));
+		 block.text = words.get(index);
 		 block.isOper = true;
 		 if(index>0){
 			 //递归构建左子树

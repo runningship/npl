@@ -1,7 +1,5 @@
 package org.bc.npl.core;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 //词法块,一个语义块可以是一个句子，也可以是一个短语
@@ -9,7 +7,7 @@ import java.util.List;
 //分词树,相当于表达式树
 public class Block {
 	
-	public List<String> text = new ArrayList<String>();
+	public String text;
 	
 	public Block right;
 	

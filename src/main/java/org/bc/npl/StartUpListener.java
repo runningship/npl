@@ -28,6 +28,7 @@ public class StartUpListener implements ServletContextListener{
 
 	private void initModule() {
 		ModuleManager.add("org.bc.rhino");
+		ModuleManager.add("org.bc.npl");
 	}
 
 	public static synchronized void initDataSource(){
