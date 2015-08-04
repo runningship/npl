@@ -178,7 +178,6 @@ Visualizer.prototype = {
             var array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(array);
             //打印出array
-            //console.log(array);
             if (that.status === 0) {
                 //fix when some sounds end the value still not back to zero
                 for (var i = array.length - 1; i >= 0; i--) {
