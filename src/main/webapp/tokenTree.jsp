@@ -8,7 +8,7 @@
 	var context;
 	var radius=30;
 	var levelHeight=100;
-	var nodeSpaceing=50;
+	//var nodeSpaceing=50;
 	var textOffset=-8;
 	var textYOffset = 2;
 	var Node = {
@@ -30,20 +30,21 @@
 		context.strokeStyle = 'black';
 		context.strokeText(node.text,node.x+textOffset,node.y+textYOffset);
 	}
-	function draw(root){
+	function draw(root , nodeSpaceing){
 		drawCircle(root);
+		var subNodeSpaceing = nodeSpaceing-30;
 		if(root.left!=null){
 			//drawline
 			root.left.x = root.x-nodeSpaceing;
 			root.left.y = root.y+levelHeight;
 			drawLine(root,root.left);
-			draw(root.left);
+			draw(root.left , subNodeSpaceing);
 		}
 		if(root.right!=null){
 			root.right.x = root.x+nodeSpaceing;
 			root.right.y = root.y+levelHeight;
 			drawLine(root,root.right);
-			draw(root.right);
+			draw(root.right , subNodeSpaceing);
 		}
 	}
 	function drawLine(node1,node2){
@@ -63,14 +64,14 @@
 // 		root.right = JSON.parse("{}");
 // 		root.left.text="node1";
 // 		root.right.text="node2";
-		root.x=300;
+		root.x=600;
 		root.y=radius;
-		draw(root);
+		draw(root , 200);
 	}
 </script>
 <title>SemanticTree</title>
 </head>
 <body>
-<canvas id="canvas" height=800px width=1080px></canvas>
+<canvas id="canvas" height=800px width=1680px></canvas>
 </body>
 </html>

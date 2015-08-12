@@ -2,6 +2,7 @@ package org.bc.npl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import net.sf.json.JSONObject;
 
@@ -9,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bc.npl.core.Block;
 import org.bc.npl.core.Lexer;
 import org.bc.npl.core.Parser;
+import org.bc.npl.entity.Fact;
 import org.bc.npl.util.DataHelper;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
@@ -46,5 +48,26 @@ public class NplService {
 		JSONObject root = DataHelper.toDrawableTree(block);
 		mv.jspData.put("tree", root.toString());
 		return mv;
+	}
+	
+	private String getFact(Block block){
+		if(block.left==null && block.right==null){
+			return block.text;
+		}
+		if("的".equals(block.text)){
+			Fact fact = new Fact();
+			fact.x = getFact(block.left);
+			fact.f = getFact(block.right);
+			fact.y = UUID.randomUUID().toString();
+			return fact.y;
+		}else if("是".equals(block.text)){
+			Fact fact = new Fact();
+			fact.x = getFact(block.left);
+			fact.f = getFact(block.right);
+			fact.y = "是";
+			return "";
+		}else{
+			throw new RuntimeException("未处理的oper");
+		}
 	}
 }

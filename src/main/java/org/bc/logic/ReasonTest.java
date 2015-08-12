@@ -1,11 +1,14 @@
 package org.bc.logic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bc.npl.StartUpListener;
 import org.bc.npl.entity.Fact;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
+import org.junit.Test;
 
 public class ReasonTest {
 
@@ -78,6 +81,17 @@ public class ReasonTest {
 		Fact po = dao.getUniqueByParams(Fact.class, new String[]{"x" ,"f", "y"}, new Object[]{fact.x ,fact.f, fact.y});
 		if(po==null){
 			dao.saveOrUpdate(fact);
+		}
+	}
+	
+	@Test
+	public void testFactBuilder(){
+		FactBuilder fb = new FactBuilder();
+		List<Fact> context = new ArrayList<Fact>();
+		List<String> words = Arrays.asList("大明","是","小明","的","爸爸");
+		fb.build(words, context);
+		for(Fact f: context){
+			System.out.println(f.toString());
 		}
 	}
 }
