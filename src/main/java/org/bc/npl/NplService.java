@@ -47,23 +47,27 @@ public class NplService {
 		Block block = parser.buildBlock(words);
 		JSONObject root = DataHelper.toDrawableTree(block);
 		mv.jspData.put("tree", root.toString());
+		List<Fact> context = new ArrayList<Fact>();
+		buildFact(block ,context);
 		return mv;
 	}
 	
-	private String getFact(Block block){
+	private String buildFact(Block block , List<Fact> context){
 		if(block.left==null && block.right==null){
 			return block.text;
 		}
 		if("的".equals(block.text)){
 			Fact fact = new Fact();
-			fact.x = getFact(block.left);
-			fact.f = getFact(block.right);
+			context.add(fact);
+			fact.x = buildFact(block.left , context);
+			fact.f = buildFact(block.right , context);
 			fact.y = UUID.randomUUID().toString();
 			return fact.y;
 		}else if("是".equals(block.text)){
 			Fact fact = new Fact();
-			fact.x = getFact(block.left);
-			fact.f = getFact(block.right);
+			context.add(fact);
+			fact.x = buildFact(block.left , context);
+			fact.f = buildFact(block.right , context);
 			fact.y = "是";
 			return "";
 		}else{

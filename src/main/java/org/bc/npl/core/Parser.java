@@ -56,7 +56,7 @@ public class Parser {
 				if(oper.priority<=priority){
 					priority = oper.priority;
 					pos = i;
-					break;
+					continue;
 				}
 				
 			}else{
@@ -65,7 +65,7 @@ public class Parser {
 					if(pri<=priority){
 						priority = pri;
 						pos = i;
-						break;
+						continue;
 					}
 				}
 				
