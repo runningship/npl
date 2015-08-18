@@ -10,5 +10,7 @@ public class Word {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	public Integer id;
+	
 	public String text;
 }

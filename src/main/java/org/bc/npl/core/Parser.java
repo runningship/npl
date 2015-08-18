@@ -53,7 +53,8 @@ public class Parser {
 			//操作符可能是一个集合
 			List<Map> list2 = dao.listAsMap("select op.priority as priority from Oper op , Aggregation aggr where op.text=aggr.sets and elem=? " , words.get(i));
 			if(oper!=null){
-				if(oper.priority<=priority){
+				//不用<=意味着同一操作符，后面的低于前面的
+				if(oper.priority<priority){
 					priority = oper.priority;
 					pos = i;
 					continue;
@@ -62,7 +63,7 @@ public class Parser {
 			}else{
 				if(!list2.isEmpty()){
 					int pri = (int) list2.get(0).get("priority");
-					if(pri<=priority){
+					if(pri<priority){
 						priority = pri;
 						pos = i;
 						continue;

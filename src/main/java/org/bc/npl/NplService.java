@@ -47,9 +47,49 @@ public class NplService {
 		Block block = parser.buildBlock(words);
 		JSONObject root = DataHelper.toDrawableTree(block);
 		mv.jspData.put("tree", root.toString());
-		List<Fact> context = new ArrayList<Fact>();
-		buildFact(block ,context);
+//		List<Fact> context = new ArrayList<Fact>();
+//		buildFact(block ,context);
+//		List<Subject> subjectList = parseBlock(block);
 		return mv;
+	}
+	
+	//TODO 在运行parseBlock之前要先检测有没有必要的谓词，如果没有就要先行联想补充完整
+	private List<Subject> parseBlock(Block block){
+		List<Subject> result = new ArrayList<Subject>();
+		if(block.isOper==false){
+			Subject sbj = new Subject();
+			sbj.name = block.text;
+			result.add(sbj);
+			return result;
+		}
+		if("的".equals(block.text)){
+			List<Subject> left = parseBlock(block.left);
+			List<Subject> right = parseBlock(block.right);
+			right.get(0).de.add(left.get(0));
+			left.get(0).deParent = right.get(0);
+			return right;
+		}
+		if("有".equals(block.text)){
+			List<Subject> left = parseBlock(block.left);
+			List<Subject> right = parseBlock(block.right);
+			left.get(0).you.add(right.get(0));
+			left.get(0).youParent = right.get(0);
+			return left;
+		}
+		if("是".equals(block.text)){
+			List<Subject> left = parseBlock(block.left);
+			List<Subject> right = parseBlock(block.right);
+			left.get(0).instances.add(right.get(0));
+			return left;
+		}
+		if("和".equals(block.text)){
+			List<Subject> left = parseBlock(block.left);
+			List<Subject> right = parseBlock(block.right);
+			result.addAll(left);
+			result.addAll(right);
+			return result;
+		}
+		return null;
 	}
 	
 	private String buildFact(Block block , List<Fact> context){
