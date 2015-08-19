@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bc.npl.core.Block;
 import org.bc.npl.core.Lexer;
 import org.bc.npl.core.Parser;
+import org.bc.npl.entity.Aggregation;
 import org.bc.npl.entity.Fact;
 import org.bc.npl.util.DataHelper;
 import org.bc.sdak.CommonDaoService;
@@ -23,6 +24,7 @@ public class NplService {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
+	private static Context  context = new Context();
 	@WebMethod
 	public ModelAndView tokenTree(String text){
 		ModelAndView mv = new ModelAndView();
@@ -49,7 +51,8 @@ public class NplService {
 		mv.jspData.put("tree", root.toString());
 //		List<Fact> context = new ArrayList<Fact>();
 //		buildFact(block ,context);
-//		List<Subject> subjectList = parseBlock(block);
+		List<Subject> subjectList = parseBlock(block);
+		context.addSubject(subjectList.get(0));
 		return mv;
 	}
 	
@@ -59,6 +62,7 @@ public class NplService {
 		if(block.isOper==false){
 			Subject sbj = new Subject();
 			sbj.name = block.text;
+			getDirectTypes(sbj);
 			result.add(sbj);
 			return result;
 		}
@@ -73,13 +77,17 @@ public class NplService {
 			List<Subject> left = parseBlock(block.left);
 			List<Subject> right = parseBlock(block.right);
 			left.get(0).you.add(right.get(0));
-			left.get(0).youParent = right.get(0);
+			right.get(0).youParent = left.get(0);
 			return left;
 		}
 		if("是".equals(block.text)){
 			List<Subject> left = parseBlock(block.left);
 			List<Subject> right = parseBlock(block.right);
+			//要判断左右的集合层次关系
 			left.get(0).instances.add(right.get(0));
+			//或者
+			right.get(0).instances.add(left.get(0));
+			
 			return left;
 		}
 		if("和".equals(block.text)){
@@ -92,6 +100,15 @@ public class NplService {
 		return null;
 	}
 	
+	private void getDirectTypes(Subject sbj) {
+		List<Aggregation> list = dao.listByParams(Aggregation.class, "from Aggregation where elem=?", sbj.name);
+		for(Aggregation aggr : list){
+			Subject type = new Subject();
+			type.name = aggr.sets;
+			sbj.types.add(type);
+		}
+	}
+
 	private String buildFact(Block block , List<Fact> context){
 		if(block.left==null && block.right==null){
 			return block.text;

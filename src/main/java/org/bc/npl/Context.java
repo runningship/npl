@@ -66,8 +66,14 @@ public class Context {
 
 	private Subject getQuestionSubject(Subject sbj){
 		if(Question.isQuestionWord(sbj.name)){
-			sbj.name="?";
-			return sbj;
+			Subject s = new Subject();
+			s.name = "?";
+			s.de = sbj.de;
+			s.types = sbj.types;
+			s.you = sbj.you;
+			s.deParent = sbj.deParent;
+			s.youParent = sbj.youParent;
+			return s;
 		}
 		for(Subject obj : sbj.you){
 			Subject q =getQuestionSubject(obj); 

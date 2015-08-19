@@ -25,16 +25,16 @@ public class Question {
 		result.add(0,sbj);
 		if(sbj.deParent!=null){
 			Subject s = new Subject();
-			s.name = "有";
+			s.name = "的";
 			result.add(0,s);
 			result.addAll(0, toQuery(sbj.deParent));
 			return result;
 		}
 		if(sbj.youParent!=null){
 			Subject s = new Subject();
-			s.name = "的";
+			s.name = "有";
 			result.add(0,s);
-			result.addAll(0, toQuery(sbj.deParent));
+			result.addAll(0, toQuery(sbj.youParent));
 			return result;
 		}
 		return result;
