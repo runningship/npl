@@ -46,13 +46,14 @@ public class NplService {
 				words.add(temp[i]);
 			}
 		}
+		words = parser.prepare(words);
 		Block block = parser.buildBlock(words);
 		JSONObject root = DataHelper.toDrawableTree(block);
 		mv.jspData.put("tree", root.toString());
 //		List<Fact> context = new ArrayList<Fact>();
 //		buildFact(block ,context);
 		List<Subject> subjectList = parseBlock(block);
-		context.addSubject(subjectList.get(0));
+//		context.addSubject(subjectList.get(0));
 		return mv;
 	}
 	

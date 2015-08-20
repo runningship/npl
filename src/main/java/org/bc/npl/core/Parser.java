@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bc.npl.entity.Oper;
+import org.bc.npl.entity.Word;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
 
@@ -73,5 +74,31 @@ public class Parser {
 			}
 		}
 		return pos;
+	}
+	
+	//每两个词语之间必须要有一个运算符
+	public List<String> prepare(List<String> words){
+		List<String> result = new ArrayList<String>();
+		boolean needOper = false;
+		for(String word : words){
+			if(needOper==false){
+				result.add(word);
+				needOper=true;
+				continue;
+			}
+			if(isOper(word)){
+				result.add(word);
+				needOper = false;
+			}else{
+				result.add("的");
+				result.add(word);
+			}
+		}
+		return result;
+	}
+	
+	private boolean isOper(String word){
+		List<Oper> list = dao.listByParams(Oper.class, "from Oper where text=?", word);
+		return !list.isEmpty();
 	}
 }
