@@ -1,0 +1,50 @@
+body {
+margin :0px;
+background-color:white;
+}
+.tel{  height: 45px;line-height: 40px;text-align:center;border-bottom: 1px solid lightskyblue;}
+.tel .title{height:40px;float:left;font-weight: bold;font-family: 微软雅黑;font-size:30px;color:lightskyblue}
+.tel_repeat{width:100%;height:40px;line-height:40px;text-align:center;}
+.tel_repeat span{border-bottom: 1px solid #888;}
+
+.wrap{padding-left:6px;padding-right: 6px;}
+.wrap .label{color:#888;width:50px;font-size:14px; }
+.call{background-color:lightskyblue;height:50px;line-height:50px;color:white;text-align:center;
+  width: 96%;
+  bottom: 20px;border:none;  margin-left: auto;
+  margin-right: auto;
+  display: inherit;font-size: 15px;
+  font-weight: bold;}
+
+table tr{height:30px;}
+.wrap table {  width: 96%;
+  margin-left: auto;
+  margin-right: auto;}
+
+.fangzhu{margin-top:20px;width:100%}
+.fangzhu tr{height:40px;}
+.fangzhu .label{vertical-align: middle;}
+.callBtn{
+	float: right;
+  height: 16px;margin-right:10px;}
+.genjinWrap{margin-top:20px;width:98%;border-top: 2px solid #888;  margin-left: auto;
+  margin-right: auto;
+}
+.genjin{margin-bottom:5px;}
+.genjin .conts{margin-top:0px;margin-bottom:0px;height:20px;line-height:20px;font-size:14px;padding-left:20px;}
+.bottom .item{display:inline-block;width:32%;text-align:center;height:40px;line-height:40px;}
+.bottom .icon{margin-right:15px;height:16px;  vertical-align: middle;margin-top:-2px;}
+.bottom span{font-size:14px;}
+.bottom {width:100%;background-color:white;border-top:3px solid #DDDDDD}
+
+.footer{
+  bottom: 0px;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #ddd;  height: 50px;
+  line-height: 50px;}
+
+.bottom2 .item{display:inline-block;width:32%;text-align:center;height:50px;line-height:50px;border-right:1px solid #aaa}
+.bottom2 .icon{margin-right:15px;height:16px;  vertical-align: middle;margin-top:-2px;}
+
+.tapped{background-color: steelblue}

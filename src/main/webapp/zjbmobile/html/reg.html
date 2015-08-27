@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+<link rel="stylesheet" type="text/css" href="../css/login.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<title>用户注册</title>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+var sendingVerifyCode;
+function getVerfiyCode(btn){
+	if(sendingVerifyCode){
+		return;
+	}
+	$(btn).css('background','#ddd');
+	var tel = $('#tel').val();
+	var pwd = $('#pwd').val();
+	var set = $('.blue');
+	if(!set){
+		return;
+	}
+	if(!tel){
+		alert('请先填写有效手机号码');
+		return;
+	}
+	//提示信息
+	YW.ajax({
+		url:'http://'+server_host+'/c/mobile/user/sendVerifyCode',
+		method:'post',
+		data:{
+        	values: {tel:tel}
+    	},
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret){
+			setcode();
+		}else{
+			alert(err.msg);
+		}
+		
+	});
+}
+
+function setcode(){
+	var times=60;
+	var clock =  setInterval(function(){
+		times--;
+		if(times<1){
+			$('.getcode').html('获取验证码');
+			$('.getcode').attr('class','btn blue w40b btn_act getcode');
+			clearInterval(clock);
+			return;
+		}
+		$('.getcode').html('已发送('+times+')');
+		$('.getcode').attr('class','btn gray w40b btn_act getcode');
+	},1000);
+}
+
+function doReg(){
+	var tel = $('#tel').val();
+	var pwd = $('#pwd').val();
+	var uname = $('#uname').val();
+	var code = $('#verifyCode').val();
+	if(!tel){
+		alert('请输入正确的手机号码');
+		return;
+	}
+	if(!uname){
+		alert('请输入用户名');
+		return;
+	}
+	if(!pwd){
+		alert('请输入登录密码');
+		return;
+	}
+	//提示信息
+	YW.ajax({
+		url:'http://'+server_host+'/c/mobile/user/verifyCode',
+		method:'post',
+		data:{
+        	values: {tel:tel , code:code,pwd:pwd , uname:uname}
+    	},
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret && ret.result=='1'){
+			alert('注册成功');
+//			api.setPrefs({
+//			    key: 'tel',
+//			    value: tel
+//			});
+//			api.setPrefs({
+//			    key: 'pwd',
+//			    value: pwd
+//			});
+//			api.setPrefs({
+//			    key: 'user',
+//			    value: JSON.stringify(ret)
+//			});
+//			window.location='login.html';
+			//因该返回登录页面
+//			ret.pageName='user';
+//			ret.title='我的';
+//			api.openWin({
+//		        name: 'user',
+//		        pageParam: ret,
+//				url: 'wrap.html',
+//		        bgColor: '#fff'
+//		    });
+//		    
+			setTimeout(function(){
+				api.closeWin({
+				    name: 'reg'
+			    });
+			},1000);
+		}else{
+			alert(ret.msg);
+		}
+		
+	});
+}
+
+function selectCity(){
+	api.openWin({
+	    name: 'citys',
+	    pageParam:{parentPage:'reg',title:'选择城市',pageName:'citys'},
+		url: 'wrap.html'
+	});
+}
+
+//call by wrap
+function setCityXX(pinyin,name){
+	alert(name);
+	$('#city').val(name);
+}
+
+
+function closexx(){
+	api.closeWin({
+	    name: 'reg'
+    });
+}
+
+apiready=function(){
+	api.getPrefs({
+	    key:'city'
+    },function(ret,err){
+    	var v = ret.value;
+    	if(!v){
+    		//默认合肥
+//  		$('#city').val('合肥');
+    	}else{
+    		city = JSON.parse(v);
+    		$('#city').val(city.name);
+    	}
+    });
+};
+</script>
+<style type="text/css">
+.row .first{width:80px;}
+.getCode{position: absolute;
+  right: 0px;
+  top: 8px;}
+</style>
+</head>
+<body>
+	<!--<div class="header" >
+		<img onclick="closexx();" class="back" src="../image/back.png"/><div class="title">注册用户 </div>
+		
+	</div>-->
+	
+	<div class="">
+		<div class="body wx addtel">
+	    <div class="wrap PT30" style="padding-top:15px;">
+	        <div class="item write">
+	            <input type="tel" class="text" name="tel" id="tel" value="" placeholder="请输入手机号码">
+	        </div>
+	        <div class="item write">
+	            <input class="text" name="uname" id="uname" value="" placeholder="请设置用户名">
+	        </div>
+	        <div class="item write">
+	            <input type="password" class="text" name="pwd" id="pwd" value="" placeholder="请设置登录密码">
+	        </div>
+	        <div class="item write">
+	            <input type="number" class="text w60b" name="verifyCode" id="verifyCode" value="" placeholder="验证码">
+	            <a href="#" class="btn blue w40b btn_act getcode " onclick="getVerfiyCode(this);"  data-type="getcode">获取验证码</a>
+	        </div>
+	        <div class="item write">
+	            <input class="text" onclick="selectCity();" readonly="readonly" name="city" id="city" value="" placeholder="请选择城市">
+	        </div>
+	        <div class="item tipbox hide">
+	            <div class="cRed"><b>错误提示等</b></div>
+	        </div>
+	        <div class="item">
+	            <a href="#" class="btn gray btn_act MB10" id="submit" onclick="doReg();" data-type="submit">立即注册</a>
+	            <!--<a href="#" onclick="closexx();" class="btn link">去登录</a>-->
+	        </div>
+	    </div>
+	</div>
+	</div>
+	
+</body>
+</html>

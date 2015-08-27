@@ -1,0 +1,28 @@
+.status{width:100%;text-align:center;margin-top:20px;}
+.status .btn{   display: inline-block;
+  width: 30%;
+  padding: 5px 0px 5px 0px;margin-right:5px;}
+.status tr{height:35px;}
+.selected{
+color: #41788c;
+border: 1px solid #6fb1c7;
+background-image: -webkit-linear-gradient(#aae5f7, #73d0f1);
+text-shadow: 1px 1px 1px #bfeafb;
+background-color: #73d0f1;
+}
+#conts{  width: 94%;
+  margin-left: 2%;
+  height:200px;margin-top:20px;resize:none;font-size:16px;}
+
+.btnSubmit{  height: 50px;
+  background: steelblue;
+  line-height: 50px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  width: 96%;
+  margin-left: 2%;
+  position: fixed;
+  bottom: 20px;}
+  
+body{background-color:white;}

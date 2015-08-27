@@ -1,0 +1,39 @@
+.area{font-size:14px;margin:6px;color:#333}
+.row{border-bottom: 1px solid #ddd;position:relative}
+.info{color:gray;font-size:10px;margin:6px;width:80%}
+.info div{display:inline-block;width:25%;}
+
+.info2{color:gray;font-size:10px;margin:6px;width:80%}
+.info2 span{display:inline-block;width:20%;}
+
+.detail{  position: absolute;
+  right: 0px;
+  top: 10px;
+  color: steelblue;
+  font-weight: bold;
+  width: 70px;
+  height: 30px;
+  border-left: 1px solid #ddd;
+  text-align: center;
+  line-height:30px;
+}
+.detail span{font-size:16px;}
+.wrap{background-color:white;}
+.detail .icon{  float: left;padding-top: 7px;margin-left:10px;height:15px;}
+
+.bottom .item{display:inline-block;width:32%;text-align:center;height:40px;line-height:40px;}
+.bottom .icon{margin-right:15px;height:16px;  vertical-align: middle;margin-top:-2px;}
+.bottom span{font-size:14px;}
+.bottom {width:100%;background-color:white;border-top:3px solid #DDDDDD}
+
+.bottom2 .item{display:inline-block;width:23%;text-align:center;height:30px;line-height:30px;}
+.bottom2 .icon{margin-right:15px;height:16px;  vertical-align: middle;margin-top:-2px;}
+.selected{background-color:grey}
+
+.search {height:40px;line-height:40px;border:1px solid #DDDDDD}
+.search img{vertical-align: middle;height:30px;margin-right:20px;margin-left:20px;}
+.search input{height:25px;font-size:16px;  border: none;border-right: 1px solid #ddd;}
+
+.tapped{background-color: steelblue}
+
+body{margin:0px;}

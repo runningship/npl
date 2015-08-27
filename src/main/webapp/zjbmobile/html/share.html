@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../css/share.css" />
+		<title></title>
+	<script type="text/javascript" src="../script/common.js"></script>
+	</head>
+    <style type="text/css">
+    </style>
+	<body>
+<script type="text/javascript">
+function closexx(){
+	api.closewin({
+	    name: 'share'
+    });
+}
+
+function shareQQ(){
+	var obj = api.require('qq');
+	obj.installed(function(ret,err){
+	    if(ret.status){
+			obj.shareNews({
+			    url:'http://www.zhongjiebao.com',
+			    title:'中介宝',
+			    description:'最佳中介房源管理软件',
+			    imgUrl:'http://www.zhongjiebao.com/logo.png'
+			});
+	    }else{
+	        api.alert({msg: "您没有安装QQ"});
+	    } 
+	});
+}
+
+function shareQZone(){
+	var obj = api.require('qq');
+	obj.installed(function(ret,err){
+	    if(ret.status){
+			obj.shareNews({
+			    url:'http://www.zhongjiebao.com',
+			    title:'中介宝',
+			    type: 'QZone',
+			    description:'最佳中介房源管理软件',
+			    imgUrl:'http://www.zhongjiebao.com/logo.png'
+			});
+	    }else{
+	        api.alert({msg: "您没有安装QQ"});
+	    } 
+	});
+}
+
+function shareWeiXin(){
+var weiXin = api.require('weiXin');
+	weiXin.registerApp(
+	    function(ret,err){
+	        if (ret.status) {
+				weiXin.sendRequest({
+				    scene:'timeline',
+				    contentType:'web_page',
+				    title:'中介宝--好用的中介房源管理软件',
+    				description:'最好的中介房源管理软件',
+				    thumbUrl: 'widget://image/logo1_108.png',
+				    contentUrl: 'http://www.zhongjiebao.com/'
+				},function(ret,err){
+				    if(ret.status){
+				        api.alert({title: '发表微信',msg: '发表成功', buttons: ['确定']});
+				    } else{
+				        api.alert({title: '发表失败',msg: err.msg,buttons: ['确定']});
+				    }
+				});
+	        } else{
+	            api.alert({msg:err.msg});
+	        }
+	    }
+	);
+}
+
+function shareWeiXin2(){
+var weiXin = api.require('weiXin');
+	weiXin.registerApp(
+	    function(ret,err){
+	        if (ret.status) {
+				weiXin.sendRequest({
+				    scene:'session',
+				    contentType:'web_page',
+				    title:'中介宝',
+    				description:'最好用的中介房源管理软件',
+				    thumbUrl: 'widget://image/logo1_108.png',
+				    contentUrl: 'http://www.zhongjiebao.com/'
+				},function(ret,err){
+				    if(ret.status){
+				        api.alert({title: '发表微信',msg: '发表成功', buttons: ['确定']});
+				    } else{
+				        api.alert({title: '发表失败',msg: err.msg,buttons: ['确定']});
+				    }
+				});
+	        } else{
+	            api.alert({msg:err.msg});
+	        }
+	    }
+	);
+}
+
+//function shareSina(){
+//	var sinaWeiBo = api.require('sinaWeiBo');
+//	sinaWeiBo.auth(function(ret,err){
+//	    if (ret.status) {
+//			sinaWeiBo.sendRequest({
+//			    contentType: 'webpage',
+//			    text: '最佳中介房源管理软件  http://www.zhongjiebao.com',
+//			    imageUrl: 'widget://image/logo.png'
+//			},function(ret,err){
+//			    if (ret.status) {
+//			        api.alert({
+//			            title: '发表微博',
+//			            msg: '发表成功',
+//			            buttons: ['确定']
+//			        });
+//			    }else{
+//			        api.alert({
+//			            title: '发表微博',
+//			            msg: '发表失败',
+//			            buttons: ['确定']
+//			        });
+//			    }
+//			});
+//	    }else{
+//	        api.alert({msg:'授权失败'+err.msg});
+//	    }
+//	});
+//}
+
+apiready = function(){
+};
+</script>
+<div class="body">
+	<div class="header" >
+		<div class="title">分&nbsp;&nbsp;&nbsp;&nbsp;享</div>
+	</div>
+	<div class="wrap" style="overflow:auto;">
+		<div class="share" onclick="shareQQ();">
+			<img src="../image/QQ2.png"/><span class="label">分享到QQ好友</span>
+		</div>
+		<div class="share" onclick="shareQZone();">
+			<img src="../image/QZone.png"/><span class="label">分享到QQ空间</span>
+		</div>
+		<div class="share" onclick="shareWeiXin();">
+			<img src="../image/weixin2.png"/><span class="label">分享到微信朋友圈</span>
+		</div>
+		<div class="share" onclick="shareWeiXin2();">
+			<img src="../image/weixin2.png"/><span class="label">分享给微信朋友</span>
+		</div>
+		<!--<div class="share" onclick="shareSina();">
+			<img src="../image/sina2.png"/><span class="label">分享到新浪微博</span>
+		</div>-->
+	</div>
+</div>
+	</body>
+</html>

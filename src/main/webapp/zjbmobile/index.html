@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>中介宝</title>
+    <link rel="stylesheet" type="text/css" href="http://www.zhongjiebao.com/mobile/css/api.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.zhongjiebao.com/mobile/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.zhongjiebao.com/mobile/css/index.css" />
+</head>
+<body>
+    <div id="wrap">
+        <div id="header" class="header">
+            <div class="search" onclick="openSearchPanel();">
+				<img src="./image/search.png" /><span>搜索</span>
+			</div>
+        </div>
+        <div id="main">
+                
+        </div>
+        
+        <div id="footer">
+            <div class="bottom">
+            	<table>
+            		<tr>
+            		<td><div class="item selected" tapmode="tapped" onclick="openThis('houses',this);return false"><img class="icon" src="./image/zuixin.png"/><span>最新</span></div></td>
+            		<td><div class="item" tapmode="tapped" onclick="openThis('fujin',this);return false"><img class="icon" src="./image/fujin.png"/><span>附近</span></div></td>
+            		<td><div class="item" tapmode="tapped" onclick="openUserInfo();return false"><img class="icon" src="./image/wode.png"/><span>我的</span></div></td>
+            		</tr>
+            	</table>
+				
+			</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="http://www.zhongjiebao.com/mobile/script/jquery.js"></script>
+<script type="text/javascript" src="http://www.zhongjiebao.com/mobile/script/buildHtml.js"></script>
+<script type="text/javascript" src="http://www.zhongjiebao.com/mobile/script/common.js"></script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9ad26b763c7cd0619e372f993cdc9849"></script>-->
+<script type="text/javascript">
+var xx="text";
+var urlPrefix="http://www.zhongjiebao.com/mobile/";
+var header,
+	headerPos,
+	main,
+	mainPos,
+	wrapPos;
+	var ajpush;
+    apiready = function(){
+//  	YW.ajax({
+//			url:'http://'+server_host+'/c/mobile/user/version',
+//			method:'get',
+//			cache:false,
+//			returnAll:false
+//		},function(ret , err){
+//			if(ret && ret.latestVersion!=api.version){
+//					api.clearCache(
+//					    function(ret,err){
+//					        alert('clear cache');
+//					    }
+//					);
+//			}
+//		});
+		
+  //   	api.clearCache(
+		//     function(ret,err){
+		//         alert('clear cache');
+		//     }
+		// );
+
+//		blockAlert('update test 3222');
+		getCityInfo(function(city){
+			if(!city || !city.cityPy){
+				api.openWin({
+				    name: 'citys',
+				    pageParam:{parentPage:'root',title:'选择城市',pageName:'citys'},
+					url: urlPrefix+'html/wrap.html'
+				});
+			}
+		});
+		
+		
+		getUserInfo(function(user){
+    		if(user){
+    			//全局变量
+//  			ajpush = api.require('ajpush');
+//  			
+////		     blockAlert(ajpush);
+//  			if(api.systemType=='ios'){
+//  				bindAjpush();
+//  			}else{
+//  				ajpush.init(function(ret) {
+//	    				if (ret && ret.status){
+//	    					bindAjpush();
+//	    				}
+//	    			});
+//  			}
+				//用于第二次点我的页面时不用重新登录
+    			user.online=false;
+    			user.fufei = false;
+    			api.setPrefs({
+	                key:'user',
+	                value:JSON.stringify(user)
+                });
+    		}
+    	});
+		
+        header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        headerPos = $api.offset(header);
+        main = $api.byId('main');
+        mainPos = $api.offset(main);
+		wrapPos = $api.offset($api.byId('wrap'));
+		
+        api.openFrame({
+            name: 'houses',
+//          url: 'http://mobile.zjb.tunnel.mobi/weixin/houseOwner/houses.jsp',
+			url: urlPrefix+'html/houses.html',
+            bounces: true,
+            rect: {
+                x: mainPos.l+1,
+                y: headerPos.h,
+                w: headerPos.w,
+                h: mainPos.h
+            }
+        });
+        
+//      var baiduLocation = api.require('baiduLocation');
+//	    baiduLocation.getLocation(
+//	        function (ret, err) {
+//	            if (ret.status) {
+//		            navigator.geolocation.getCurrentPosition(function(option){
+//		            	blockAlert(JSON.stringify(option));
+//		            },function(){},function(){});
+//	            } else {
+//	                api.alert({ msg: err.msg });
+//	            }
+//	        }
+//	    );
+
+		
+    };
+    
+    function setCity(){
+    	//空实现即可
+    }
+    
+    function bindAjpush(){
+    	var param = {alias: user.tel};
+		ajpush.bindAliasAndTags(param,function(ret) {
+		     blockAlert('statuscode = '+ret.statusCode+'绑定到'+param.alias);
+		});
+	
+		ajpush.setListener(function(ret) {
+			if(api.deviceId!=ret.content){
+				blockAlert('您的账号在别处登录,您在此处将下线');
+				api.setPrefs({
+                    key:'user',
+                    value:''
+                });
+			}
+	    });
+	    
+    }
+
+//var web_socket_on;
+//var retry;
+//var coco_ws;
+//	function connectWebSocket(tel){
+//		coco_ws = new WebSocket('ws://'+websocket_server_host+'/?deviceId='+api.deviceId+'&tel='+tel);
+//	    console.log('正在连接...');
+//	    coco_ws.onopen = function() {
+//	        web_socket_on = true;
+//	    };
+//	    coco_ws.onclose = function() {
+//	        web_socket_on = false;
+//	    };
+//	    coco_ws.onmessage = function(e) {
+//	    	
+//	    	if(e.data=='loginAnother'){
+//	    		//退出登录，退出系统
+//	    		blockAlert('账号在别处登录');
+//	    		api.closeWidget({
+//				    id: 'A6989896004356',
+//				    retData: {name:'closeWidget'},
+//                  silent:true
+//				});
+//	    	}
+//	    };
+//	    coco_ws.onerror = function(e) {
+//	    	web_socket_on = false;
+//	        //掉线重连
+//	    };
+//	}    
+    
+    function openThis(a,obj){
+    	$('.item').attr('class', 'item');
+    	$(obj).attr('class','item selected');
+    	var y=headerPos.h,h=mainPos.h;
+//  	blockAlert(JSON.stringify(headerPos));
+        api.openFrame({
+            name: a,
+			url: urlPrefix+'html/'+a+'.html',
+            bounces: true,
+            bgColor: '#fff',
+            rect: {
+                x: mainPos.l+1,
+                y: y,
+                w: headerPos.w,
+                h: h
+            }
+        });
+    }
+    
+    function openUserInfo(){
+    	getUserInfo(function(user){
+    		if(user && user.online){
+    			api.openWin({
+			        name: 'user',
+			        pageParam: {pageName: 'user',title:'我的'},
+					url: urlPrefix+'html/wrap.html',
+					delay:300,
+			        bgColor: '#fff'
+			    });
+    		}else{
+			    api.openWin({
+		            name: 'login',
+		            pageParam: {pageName: 'login',title:'登录'},
+					url: urlPrefix+'html/wrap.html',
+		            bgColor: '#fff'
+		        });
+    		}
+	        
+    	});
+    	
+    }
+    
+    
+    function openSearchPanel(){
+    	api.openWin({
+		    name: 'search',
+		    bounces: false,
+		    softInputMode:'resize',
+			url: urlPrefix+'html/search.html'
+		});
+    }
+    
+    function refreshHouses(){
+//  	alert(222);
+    	api.execScript({
+		    frameName: 'houses',
+		    script: 'refreshPage();'
+		});
+    }
+</script>
+</html>

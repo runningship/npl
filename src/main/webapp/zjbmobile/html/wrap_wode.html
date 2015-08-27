@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>中介宝</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/header.css" />
+    
+    <style type="text/css">
+    	.bottom button{  width: 50%;
+  height: 35px;
+  line-height: 35px;
+  background: aliceblue;}
+  .selected{background:aliceblue}
+  .hide{display:none}
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header" class="header">
+			<img onclick="closexx();" tapmode="tapped" class="back" style="vertical-align: middle;" src="../image/back.png"/>
+			<span style="font-weight: normal;font-family: 微软雅黑;"></span>
+			<img onclick="openDelete();" tapmode="tapped" class="back setting" style="float:right;margin-left:20px;" src="../image/setting.png" />
+        </div>
+        <div id="main">
+                
+        </div>
+        
+        
+        <div id="footer">
+            <div class="bottom hide" >
+			<button id="selectA" onclick="selectAll();">全选</button><button onclick="del()">删除</button>
+			</div>
+        </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/buildHtml.js"></script>
+<script type="text/javascript">
+var xx="text";
+var header,
+	headerPos,
+	main,
+	mainPos,
+	wrapPos;
+var type;
+var params='';
+var name = '';
+    apiready = function(){
+
+        header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        headerPos = $api.offset(header);
+        main = $api.byId('main');
+        mainPos = $api.offset(main);
+		wrapPos = $api.offset($api.byId('wrap'));
+		type = api.pageParam.type;
+		if(type==undefined){
+			type='searchResult';
+		}
+		name = api.pageParam.name;
+		params = api.pageParam;
+		if(type=='fav'){
+			$('#header span').html('我的收藏');
+		}else if(type=='tracks'){
+			$('#header span').html('浏览记录');
+		}else if(type=='view'){
+			$('#header span').html('房源列表');
+			$('.setting').css('display','none');
+		}else {
+			$('#header span').html('搜索结果');
+			$('.setting').css('display','none');
+		}
+		 
+        api.openFrame({
+            name: type,
+            pageParam: {name: name,params:params},
+			url: type+'.html',
+            bounces: true,
+            rect: {
+                x: mainPos.l+1,
+                y: headerPos.h,
+                w: headerPos.w,
+                h: mainPos.h
+            }
+        });
+    };
+    
+    function openDelete(){
+    	$('.bottom').toggleClass('hide');
+    	$('.setting').toggleClass('selected');
+	    api.execScript({
+		    frameName: type,
+		    script: 'setDelete();'
+		});
+    }
+    
+    function reloadThis(){
+    	window.location.reload();
+    }
+    
+    function selectAll(){
+	    api.execScript({
+		    frameName: type,
+		    script: 'selectAllItems();'
+		});
+    }
+    
+    function del(){
+	    api.execScript({
+		    frameName: type,
+		    script: 'delItems();;'
+		});
+    }
+    
+	function closexx(){
+		api.closeWin({
+		    name: 'wrap_wode'
+	    });
+	}
+
+</script>
+</html>

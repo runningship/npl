@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title></title>
+	<script type="text/javascript" src="../script/jquery.js"></script>
+	<script type="text/javascript" src="../script/buildHtml.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<style type="text/css">
+		body{background-color:white}
+		.city{color:red;}
+		.item{
+  margin-top: 8px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  background: #0BEAEA;
+  color: white;
+  padding-left: 8px;}
+  
+.tapped{background-color: cadetblue;}
+	</style>
+	
+	
+</head>
+<body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready=function(){
+		YW.ajax({
+			url:'http://'+server_host+'/c/mobile/getCityList',
+			method:'post',
+			cache:false,
+			returnAll:false
+		},function(ret , err){
+			if(ret){
+				buildHtmlWithJsonArray('repeat',ret.citys , false,true);
+				api.parseTapmode();
+			}else{
+			}
+		});
+	};
+	
+	function selectCity(pinyin,name){
+		var json = JSON.parse('{}');
+		json.name=name;
+		json.cityPy=pinyin;
+		YW.ajax({
+			url:'http://'+server_host+'/c/mobile/getQuyus',
+			method:'post',
+			data:{
+	        	values: {pinyin:pinyin}
+	    	},
+			cache:false,
+			returnAll:false
+		},function(ret , err){
+			if(ret.status){
+				json.quyus = ret.quyus;
+//				blockAlert(JSON.stringify(json));
+				api.setPrefs({
+				    key:'city',
+				    value:JSON.stringify(json)
+			    });
+			    api.execScript({
+				    name: api.pageParam.parentPage,
+				    script: 'setCity("'+pinyin+'","'+name+'")'
+				});
+				
+				api.closeWin({
+					name:'citys'
+		        });
+			}
+		});
+		
+	}
+</script>
+	<div class="city">
+		<div tapmode="tapped" data="$[quyus]" style="display:none" onclick="selectCity('$[pinyin]','$[name]');" class="item repeat">$[name]</div>
+	</div>
+</body>
+</html>

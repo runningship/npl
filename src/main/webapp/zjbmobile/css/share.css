@@ -1,0 +1,14 @@
+html,body{padding: 0; margin: 0; height: 100%; overflow: hidden;}
+.body{height: 100%; overflow: hidden;background-color:#DADCDD;}
+.body .header{ position: absolute; top: 0; right: 0; left: 0; height: 50px; line-height: 50px; background:white}
+.header{  height: 50px;line-height: 50px;text-align:center;border-bottom: 1px solid #888;position: fixed;
+  width: 100%;
+  top: 0px;}
+.header .title{font-size:25px;font-family: 微软雅黑;background-color:#0B6ED0;color:white}
+
+.body .wrap{ position: absolute; top: 52px;width:100%; overflow: auto;}
+.wrap .share{background-color:white;border-bottom: 3px solid #DADCDD;}
+.wrap img{height:50px;margin-left: 8%;margin-top: 10px;margin-bottom: 10px;}
+.wrap .label{position: absolute;left:35%;margin-top: 20px;font-weight: bold;font-size:20px;}
+
+.tapped{background-color: steelblue}

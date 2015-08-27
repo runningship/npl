@@ -1,0 +1,6 @@
+body {
+margin :0px;background:white;
+}
+.header{  height: 50px;line-height: 50px;text-align:center;border-bottom: 1px solid #888;}
+.header .back{height:50px;float:left}
+.header .title{font-weight: bold;font-family: 微软雅黑;}

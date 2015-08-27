@@ -1,0 +1,8 @@
+.header{  height: 50px;line-height: 50px;text-align:center;border-bottom: 1px solid #888;font-family: 微软雅黑;
+border-bottom:5px solid #ddd}
+.header .back{height:50px;float:left}
+.header .title{font-weight: bold;font-size:20px;}
+.header a{  float: right;
+  color: #ddd;
+  font-weight: normal;margin-right:20px;}
+.tapped{background-color: steelblue}

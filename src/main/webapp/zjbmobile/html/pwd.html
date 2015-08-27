@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+<link rel="stylesheet" type="text/css" href="../css/login.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<title>修改密码</title>
+<script type="text/javascript" src="../script/jquery.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+var sendingVerifyCode;
+function getVerfiyCode(btn){
+	if(sendingVerifyCode){
+		return;
+	}
+	$(btn).css('background','#ddd');
+	var tel = $('#tel').val();
+	var pwd = $('#pwd').val();
+	if(!tel){
+		alert('请先填写有效手机号码');
+		return;
+	}
+	//提示信息
+	YW.ajax({
+		url:'http://'+server_host+'/c/mobile/user/sendVerifyCode',
+		method:'post',
+		data:{
+        	values: {tel:tel}
+    	},
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret){
+			alert('验证码已发送');
+		}else{
+		}
+	});
+	sendingVerifyCode=true;
+}
+
+apiready=function(){
+	api.getPrefs({
+	    key:'tel'
+    },function(ret,err){
+    	if(ret.value){
+    		$('#tel').val(ret.value);
+    	}
+    });
+}
+
+function doModifyPwd(){
+	var tel = $('#tel').val();
+	var pwd = $('#pwd').val();
+	var code = $('#verifyCode').val();
+	if(!tel){
+		alert('请输入正确的手机号码');
+		return;
+	}
+	if(!pwd){
+		alert('请输入登录密码');
+		return;
+	}
+	//提示信息
+	YW.ajax({
+		url:'http://'+server_host+'/c/mobile/user/modifyPwd',
+		method:'post',
+		data:{
+        	values: {tel:tel , code:code,pwd:pwd}
+    	},
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret.result){
+			alert('修改密码成功');
+			api.hideProgress();
+//			window.location='login.html';
+		}else{
+			alert(ret.msg);
+		}
+		
+	});
+}
+
+function closexx(){
+	api.closeWin({
+	    name: 'pwd'
+    });
+}
+</script>
+<style type="text/css">
+.row .first{width:80px;}
+.getCode{position: absolute;
+  right: 0px;
+  top: 8px;}
+</style>
+</head>
+<body>
+	<!--<div class="header" >
+		<img onclick="closexx();" class="back" src="../image/back.png"/><div class="title">注册用户 </div>
+		
+	</div>-->
+	
+	<div class="">
+		<div class="body wx addtel">
+	    <div class="wrap PT30" style="padding-top:15px;">
+	        <div class="item write">
+	            <input type="tel" class="text" name="tel" id="tel" value="" placeholder="请输入手机号码">
+	        </div>
+	        <div class="item write">
+	            <input type="password" class="text" name="pwd" id="pwd" value="" placeholder="请设置新密码">
+	        </div>
+	        <div class="item write">
+	            <input type="number" class="text w60b" name="verifyCode" id="verifyCode" value="" placeholder="验证码">
+	            <a href="#" class="btn blue w40b btn_act getcode " onclick="getVerfiyCode(this);"  data-type="getcode">获取验证码</a>
+	        </div>
+	        <div class="item">
+	            <a href="#" class="btn gray btn_act MB10" id="submit" onclick="doModifyPwd();" data-type="submit">确定</a>
+	            <!--<a href="#" onclick="closexx();" class="btn link">取消</a>-->
+	        </div>
+	    </div>
+	</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../css/info.css" />
+		<link rel="stylesheet" type="text/css" href="../css/box.css" />
+		<title></title>
+		<script type="text/javascript" src="../script/jquery.js"></script>
+		
+		<script type="text/javascript" src="../script/buildHtml.js"></script>
+		<script type="text/javascript" src="../script/common.js"></script>
+	</head>
+	<body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+	var id;
+	var uid =null;
+	function loadData(){
+		var url;
+		if(uid){
+			url = 'http://'+server_host+'/c/mobile/detail?houseId='+id+'&userId='+uid;
+		}else{
+			url = 'http://'+server_host+'/c/mobile/detail?houseId='+id;
+		}
+		YW.ajax({
+				url:url,
+				method:'post',
+				//headers:{'X-APICloud-AppKey':'864F93C2-2CC5-D823-55F7-52DF0B86549C'},
+//				dataType:'json',
+//				data:{"page":currentPage},
+				cache:false,
+				returnAll:false
+			},function(ret , err){
+				if(ret){
+					$('#area').html(ret.area);
+					$('#dateadd').html(ret.dateadd);
+					$('#quyu').html(ret.quyu);
+					$('#ztai').html(ret.ztai);
+					if(ret.mji){
+						$('#mji').html(ret.mji+'m²');
+					}
+					if(ret.zjia){
+						$('#zjia').html(ret.zjia+'万');
+					}
+					if(ret.djia){
+						$('#djia').html(ret.djia+'元');
+					}
+					if(ret.lceng){
+						$('#lceng').html(ret.lceng+'层');
+					}
+					
+					$('#lxing').html(ret.lxing);
+					$('#hxing').html(ret.hxf+"室"+ret.hxt+"厅"+ret.hxw+"卫");
+					$('#ziu').html(ret.zxiu);
+					if(ret.year){
+						$('#year').html(ret.year+'年');
+					}
+					$('#address').html(ret.address);
+					$('#beizhu').html(ret.beizhu);
+				}else{
+					alert(JSON.stringify(err));
+//					alert('加载数据失败');
+				}
+			});
+	}
+	
+	function call(){
+		api.call({
+		    type: 'tel_prompt',
+		    number: '055165314555'
+		});
+	}
+	
+		apiready = function(){
+			id = api.pageParam.id;
+			getUserInfo(function(user){
+				if(user!=null){
+					uid=user.uid;
+				}
+				loadData();
+			});
+		};
+		
+		function closexx(){
+			api.closeWin({
+			    name: 'info'
+		    });
+		}
+		
+	</script>
+		
+<div class="body">
+	<!--<div class="header" >
+		<img onclick="closexx();" class="back" src="../image/back.png"/><div class="title" style="font-weight:normal">详情</div>
+	</div>-->
+		<div class="wrap" style="top:5px;">
+			<table style="">
+				<tr>
+					<td class="label">楼盘: </td><td id="area" colspan="3"></td>
+				</tr>
+				<tr>
+					<td  colspan="4"><span class="label">发布时间: </span><span id="dateadd"></span></td>
+				</tr>
+				<tr>
+					<td class="label">区域: </td><td id="quyu"></td><td class="label">状态: </td><td id="ztai"></td>
+				</tr>
+				<tr>
+					<td class="label">面积: </td><td id="mji"></td><td class="label">价格: </td><td id="zjia"></td>
+				</tr>
+				<tr>
+					<td class="label">单价: </td><td id="djia"></td><td class="label">楼层: </td><td id="lceng"></td>
+				</tr>
+				<tr>
+					<td class="label">楼型: </td><td id="lxing"></td><td class="label">户型: </td><td id="hxing"></td>
+				</tr>
+				<tr>
+					<td class="label">装潢: </td><td id="zxiu"></td><td class="label">建于: </td><td id="year"></td>
+				</tr>
+				<tr>
+					<td class="label addr">地址: </td><td id="address" colspan="3"></td>
+				</tr>
+				<tr>
+					<td class="label">其他: </td><td id="beizhu" colspan="3"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="footer" style="bottom:20px;">
+			<button class="call" onclick="call();">点击拨打客服电话</button>
+		</div>
+</div>
+		
+	</body>
+</html>
