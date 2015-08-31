@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @authors yimixia.com
  * @date    2015-08-28 10:22:14
  * @version $Id$
@@ -55,12 +55,12 @@ $(document).ready(function() {
     }).find('.formItem.check').each(function(index, el) {
         var Thi=$(this),
         checkbox=Thi.find('input.checkbox'),
-        hasCheck=checkbox.prop('checked'),
+        hasCheck=checkbox.attr('checked'),
         ThiType=checkbox.attr('type');
-        if(hasCheck){
+        if(hasCheck==="checked"){
             Thi.addClass('active');
             if(ThiType=='radio'){
-                Thi.siblings().removeClass('active');
+                Thi.parent().siblings().find($(this).attr('class')).removeClass('active');
             }
         }else{
             Thi.removeClass('active');
@@ -86,7 +86,7 @@ $(document).ready(function() {
 
 
 /* nav hover */
-    
+
 $(document).ready(function() {
 $('.Ha .Hb').hover(function(){
     var Thi=$(this),
@@ -99,24 +99,3 @@ $('.Ha .Hb').hover(function(){
 })
 });
 
-
-
-function fixedbakcground(){
-    var scrollTop=$(window).scrollTop();
-    var activebg=$('.activebg');
-    var activebgArr=[];
-
-    $(activebg).each(function(i, item) {
-        if (i === 0) {
-            activebgArr[i] = $(item).offset().top - Math.floor($(item).height() / 2) - 500
-        } else {
-            activebgArr[i] = $(item).offset().top - Math.floor($(item).height() / 2)
-        }
-    });
-    $(window).scroll(function(e){
-        scrollTop = $(window).scrollTop();
-        $(activebgArr).each(function(i, item) {
-            
-        });
-    });
-}

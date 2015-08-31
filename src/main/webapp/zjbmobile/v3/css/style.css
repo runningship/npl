@@ -123,8 +123,15 @@ box-orient:horizontal;
 .pay .imgbox{ display: inline-block; }
 .pay .imgbox img{ height: 40px; margin-bottom: -15px; }
 
-
-
+.pay.ok .conts{  padding: 30px; background:url('../images/bg_jc.png') repeat-x bottom left; }
+.pay.ok .conts div.tits{ margin: 0 auto; width: 250px; padding-left: 30px; padding-bottom: 10px; border-bottom: 3px solid #66c000; color:#66c000;  }
+.pay.ok .conts div.tits .icon{ margin-right: 10px; float: left; vertical-align: bottom; }
+.pay.ok .conts div.tits .icon i{ font-size: 40px; line-height: 40px; }
+.pay.ok .conts div.tits span.cont h2{font-size: 22px;}
+.pay.ok .conts div.tits span.cont b{ font-size: 14px; }
+.pay.ok .conts ul.payOkList{ margin: 0 auto; width: 250px; padding: 20px 0 0 50px; font-size: 16px;}
+.pay.ok .conts ul.payOkList li{ margin-bottom: 10px; }
+.pay.ok .conts ul.payOkList li b{ color: #FF6100; }
 
 /* house */
 .house sup{ vertical-align: super; font-size: 12px; }
