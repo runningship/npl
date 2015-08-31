@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>中介宝</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/reset.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/javascript.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="js/reg.js"></script>
+</head>
+<body class="reg">
+<div id="wrap" class="bodyer">
+    <div id="header" class="header">
+    	<div class="banner">
+	        <a class="posa"  onclick="selectCity();"><i class="iconfont">&#xe623;</i> <span id="city"></span></a>
+	    </div>
+        <span class="left">
+            <a href="login.html" class="btns"><i class="iconfont">&#xe628;</i></a>
+        </span>
+        <span class="conter">
+            修改密码
+        </span>
+        <span class="right">
+            
+        </span>
+    </div>
+    <div id="mainer" class="mainer">
+        <form class="form1">
+            <ul class="formUL">
+                <li>
+                    <label class="formItem sty2">
+                        <span class="icon"><i class="iconfont">&#xe60c;</i></span>
+                        <span class="inputbox"><input type="tel" class="input" name="tel" id="tel" value="" placeholder="手机号" autofocus="autofocus"></span>
+                    </label>
+                </li>
+                <li>
+                    <label class="formItem sty2">
+                        <span class="icon"><i class="iconfont">&#xe62f;</i></span>
+                        <span class="inputbox"><input type="tel" class="input" name="code" id="verifyCode" value="" placeholder="验证码">
+                            <a class="btn getCode" onclick="getVerfiyCode(this);">获取验证码</a>
+                        </span>
+                    </label>
+                </li>
+                <li class="no">
+                    <label class="formItem sty2">
+                        <div class="icon"><i class="iconfont">&#xe60a;</i></div>
+                        <div class="inputbox"><input type="password" class="input" name="pwd" id="pwd" value="" placeholder="密码"></div>
+                    </label>
+                </li>
+            </ul>
+            <a onclick="doModifyPwd();" class="btn blue block round5" >修改密码</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>
