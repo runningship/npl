@@ -103,6 +103,9 @@ box-orient:horizontal;
 .login .gotoreg{ }
 .login .getpwd{ }
 
+.login.move .banner{ height:100%;}
+.login.move .mainer{padding-top:0;}
+
 /* reg */
 .reg { background: #F6F6F6; }
 .reg .formUL{ margin:10px 0; background: #FFF; border: 1px solid #CFCFCF; }
