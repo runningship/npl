@@ -84,7 +84,7 @@ box-orient:horizontal;
 
 
 .login{ }
-.login .banner{ position: relative; height: 200px; line-height: 250px; text-align: center; background: #18B4ED url('../images/login-logo.png') no-repeat center 100px ;  color: #FFF;}
+.login .banner{ position: relative; height: 200px; line-height: 250px; text-align: center; background: #18B4ED url('../images/login-logo.png') no-repeat center 60% ;  color: #FFF;}
 .login .banner a.posa{ color: #FFF; position: absolute; top: 10px; left:10px; line-height: normal; display: block;padding: 10px; border-radius: 5px;}
 .login .banner a.posa:active{ background-color: rgba(255,255,255,0.5);}
 .login .mainer{ padding: 30px 30px 30px; min-height: 300px; }
