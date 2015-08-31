@@ -127,7 +127,7 @@ function AddSelect(pageParam){
 			SelectBox = SelectBox + '<span>楼层：'+lcengStart+'-'+lcengEnd+'</span>';
 		}
 	}
-	SelectBox += '<span>状态：'+$('#status_table .selected').text()+'</span>';
+	//SelectBox += '<span>状态：'+$('#status_table .selected').text()+'</span>';
 	SelectBox +='</div>';
 	$('#searchHistoryWrap').prepend(SelectBox);
 	if(historySearchCount>=10){
@@ -321,6 +321,7 @@ apiready=function(){
 				<td class="input"><input type="number" id="lcengEnd"/></td>
 				<td class="unit">层</td>
 			</tr>
+			<!--  
 			<tr clsss="status row">
 				<td class="label"><span>状态: </span></td>
 				<td colspan="3">
@@ -335,6 +336,7 @@ apiready=function(){
 				</td>
 				<td></td>
 			</tr>
+			-->
 		</table>
 		
 	</div>

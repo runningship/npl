@@ -41,9 +41,13 @@ var header,
 		wrapPos = $api.offset($api.byId('wrap'));
 
 		$('#title').text(api.pageParam.title);
+		var pageUrl = api.pageParam.pageUrl;
+		if(!pageUrl){
+			pageUrl = api.pageParam.pageName+'.html';
+		}
         api.openFrame({
             name: api.pageParam.pageName+'Frame',
-			url: api.pageParam.pageName+'.html',
+			url: pageUrl,
 			pageParam : api.pageParam,
             bounces: true,
             rect: {
