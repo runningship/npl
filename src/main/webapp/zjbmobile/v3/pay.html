@@ -12,15 +12,18 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/layer/layer.js"></script>
 <script type="text/javascript" src="js/javascript.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/buildHtml.js"></script>
+<script type="text/javascript" src="js/pay.js"></script>
 </head>
 <body class="pay">
 <div id="wrap" class="bodyer">
     <div id="header" class="header">
         <span class="left">
-            <a href="#" class="btns"><i class="iconfont">&#xe628;</i></a>
+            <a href="#" class="btns" onclick="closexx();"><i class="iconfont">&#xe628;</i></a>
         </span>
         <span class="conter">
-            手机端支付
+            购买服务
         </span>
         <span class="right">
             
@@ -29,24 +32,24 @@
     <div id="mainer" class="mainer">
         <form class="form1">
             <ul class="formUL">
-                <li>
+                <li onclick="selectBuyMonth(1,'monthPay');">
                     <label class="formItem check ">
                         <span class="icon"><i class="iconfont y">&#xe627;</i><i class="iconfont n">&#xe631;</i></span>
-                        <span class="inputbox">月付 40元 </span>
+                        <span class="inputbox">月付 <span id="monthPay">40</span>元 </span>
                         <input type="radio" class="hidden checkbox" name="checkbox" id="checkbox" value="40" checked="checked" >
                     </label>
                 </li>
-                <li>
+                <li onclick="selectBuyMonth(3,'seasonPay');">
                     <label class="formItem check ">
                         <span class="icon"><i class="iconfont y">&#xe627;</i><i class="iconfont n">&#xe631;</i></span>
-                        <span class="inputbox">季付 100元 <b>优惠 33.33元</b></span>
+                        <span class="inputbox">季付 <span id="seasonPay">100</span>元  </span>
                         <input type="radio" class="hidden checkbox" name="checkbox" id="checkbox" value="40" >
                     </label>
                 </li>
-                <li class="no">
+                <li class="no" onclick="selectBuyMonth(12,'yearPay');">
                     <label class="formItem check ">
                         <span class="icon"><i class="iconfont y">&#xe627;</i><i class="iconfont n">&#xe631;</i></span>
-                        <span class="inputbox">年付 300元 <b>优惠 99.99元</b></span>
+                        <span class="inputbox">年付 <span id="yearPay">400</span>元  </span>
                         <input type="radio" class="hidden checkbox" name="checkbox" id="checkbox" value="40" >
                     </label>
                 </li>
@@ -66,7 +69,7 @@
                 </li>
             </ul>
         </form>
-        <a href="payOK.html" class="btn orange block round5" >支付</a>
+        <a href="#" onclick="aliPay();" class="btn orange block round5" >支付</a>
     </div>
 </div>
 </body>

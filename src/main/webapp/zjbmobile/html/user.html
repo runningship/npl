@@ -129,7 +129,9 @@ function logout(){
 function xufei(){
 	api.openWin({
         name: 'order',
-		url: 'order.html',
+		//url: 'order.html',
+		bounces: true,
+		url: '../v3/pay.html',
         bgColor: '#fff'
     });		
 }
