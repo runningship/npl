@@ -199,10 +199,13 @@ box-orient:horizontal;
 .menuList i.orange{ color: #FF6100; }
 
 .sider{  }
-.sider .headbox{ background:#18B4ED; }
+.sider .headbox{ background:#FFF; text-align: center; padding: 20px 0; color: #18B4ED; }
+.sider .headbox h1 i{ font-size: 80px; line-height: 80px; }
+.sider .headbox h3{ font-size: 18px; }
 .sider .footer{ text-align: center; display: block; }
 .sider .footer .btn {color: #F00;}
-.sider .menuList li{ border:none; }
+.sider .menuList li{ border:none; padding: 0 0 0 100px; }
+.sider .menuList { padding:30px 0 0; }
 /*
 display:-webkit-box;-webkit-box-orient:horizontal;
 -webkit-box-flex:1;
