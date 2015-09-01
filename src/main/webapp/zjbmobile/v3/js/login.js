@@ -158,8 +158,8 @@ function openReg(){
 }
 
 function startSoftInput(){
-	$('#wrap').addClass('moveTop');
+	$('#wrap').addClass('move');
 }
 function endSoftInput(){
-	$('#wrap').removeClass('moveTop');
+	$('#wrap').removeClass('move');
 }

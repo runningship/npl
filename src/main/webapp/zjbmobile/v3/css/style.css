@@ -20,11 +20,11 @@ display: table; width: 100%;
 .header .left,
 .header .right,
 .header .conter{ display:table-cell; height: inherit; line-height: inherit; }
-.header .left{width: 80px; text-align: left;}
+.header .left{width: 80px; text-align: left;  padding-left: 10px;}
 .header .right{width: 80px; text-align: right; height: 36px; line-height: 36px; }
 .header .conter{ text-align: center; font-size: 18px; }
 .header a.btns{ display: inline-block; width: 36px; height: 36px; line-height: 36px; text-align: center; color: #FFF; }
-.header i{font-size: 24px;}
+.header i{font-size: 18px;}
 
 .header .headGroup{display: table; width: 100%; padding: 0 5px;}
 .header .headGroup.heng{ padding: 0; display: -webkit-box;-webkit-box-orient:horizontal; height: 40px; line-height: 40px; }
@@ -84,7 +84,8 @@ box-orient:horizontal;
 
 
 .login{ }
-.login .banner{ position: relative; height: 200px; line-height: 250px; text-align: center; background: #18B4ED url('../images/login-logo.png') no-repeat center 60% ;  color: #FFF;}
+.login .banner{ position: relative; height: 200px; line-height: 250px; text-align: center; background: #18B4ED ;  color: #FFF;}
+.login .banner .logo i{ font-size:100px}
 .login .banner a.posa{ color: #FFF; position: absolute; top: 10px; line-height: normal; display: block;padding: 10px; border-radius: 5px;}
 .login .banner a.posa:active{ background-color: rgba(255,255,255,0.5);}
 .login .banner a.posa.l{left: 10px;}
@@ -105,11 +106,13 @@ box-orient:horizontal;
 .login .gotoreg{ }
 .login .getpwd{ }
 
-.login #wrap.move .banner{ height:100%;}
+.login #wrap.move .banner{ height:100px; line-height:125px;}
 .login #wrap.move .mainer{padding-top:0;}
 
 /* reg */
 .reg { background: #F6F6F6; }
+.reg .header .btns {  color: #FFF; margin-right: 10px; white-space:nowrap;width: auto; }
+.reg .header .btns i{color: #FFF;}
 .reg .formUL{ margin:10px 0; background: #FFF; border: 1px solid #CFCFCF; }
 .reg .formUL li.no .formItem{ border-bottom: none; }
 .reg .btn.block{ margin:20px 10px 0;letter-spacing:8px; }
