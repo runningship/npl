@@ -1,4 +1,7 @@
 var urlPrefix="";
+var houseType="chushou";
+var fujinType="chushou";
+var bottomType="house";
 var header,
 	headerPos,
 	main,
@@ -58,7 +61,7 @@ var header,
 		wrapPos = $api.offset($api.byId('wrap'));
 		
         api.openFrame({
-            name: 'houses',
+            name: 'house',
 //          url: 'http://mobile.zjb.tunnel.mobi/weixin/houseOwner/houses.jsp',
 //			url: urlPrefix+'html/houses.html',
 			url: urlPrefix+'v3/house.html',
@@ -109,18 +112,58 @@ var header,
 	    
     }
     
-    function openThis(name,url,obj){
-    	$(obj).parent().find('.item').removeClass('active');
-    	$(obj).addClass('active');
-    	$('.headNav').css('display','none');
-    	$('#'+name).css('display','');
+    function setBottomTypeAndOpen(bType){
+    	bottomType=bType;
+    	openThis();
+    }
+    function setHouseTypeAndOpen(hType){
+    	houseType=hType;
+    	openThis();
+    }
+    function setFujinTypeAndOpen(fType){
+    	fujinType=fType;
+    	openThis();
+    }
+    function openThis(){
+    	var url="";
+    	if(bottomType=='house'){
+    		$('#footer .item').removeClass('active');
+        	$('#fangyuan').addClass('active');
+        	$('.headNav').css('display','none');
+        	$('#house').css('display','');
+        	$('#house .item').removeClass('active');
+        	if(houseType=='chushou'){
+            	$('#houseChushou').addClass('active');
+        		url= 'v3/house.html';
+        	}else{
+            	$('#houseChuzu').addClass('active');
+        		url = 'v3/houseRent.html';
+        	}
+    	}else{
+    		$('#footer .item').removeClass('active');
+        	$('#nearby').addClass('active');
+        	
+        	$('.headNav').css('display','none');
+        	$('#fujin').css('display','');
+        	
+        	$('#fujin .item').removeClass('active');
+        	if(fujinType=='chushou'){
+        		$('#fujinChushou').addClass('active');
+        		url= 'v3/fujin.html';
+        	}else{
+        		$('#fujinChuzu').addClass('active');
+        		url = 'v3/fujinRent.html';
+        	}
+    	}
+    	
     	var y=headerPos.h,h=mainPos.h;
         api.openFrame({
-            name: name,
+            name: bottomType,
 			//url: urlPrefix+'html/'+a+'.html',
 //			url: urlPrefix+'v3/'+a+'.html',
             url: url,
             bounces: true,
+            reload:true,
             bgColor: '#fff',
             rect: {
                 x: mainPos.l+1,
@@ -158,11 +201,26 @@ var header,
     
     
     function openSearchPanel(){
+    	var url = '';
+    	if(bottomType=='house'){
+    		if(houseType=='chushou'){
+        		url = 'html/search.html';
+        	}else{
+        		url = 'html/searchRent.html';
+        	}
+    	}else{
+    		if(fujinType=='chushou'){
+        		url = 'html/search.html';
+        	}else{
+        		url = 'html/searchRent.html';
+        	}
+    	}
+    	
     	api.openWin({
 		    name: 'search',
 		    bounces: false,
 		    softInputMode:'resize',
-			url: urlPrefix+'html/search.html'
+			url: url
 		});
     }
     

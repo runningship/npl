@@ -26,19 +26,19 @@
 	            <span class="conter">
 	                <div class="headNav"  id="house">
 	                	<!-- 房源 -->
-	                    <a class="item active" onclick="openThis('house','v3/house.html' , this);">
+	                    <a class="item active" id="houseChushou" onclick="setHouseTypeAndOpen('chushou');">
 	                        <h2>出售</h2>
 	                    </a>
-	                    <a class="item" onclick="openThis('house','v3/houseRent.html' , this);">
+	                    <a class="item"  id="houseChuzu" onclick="setHouseTypeAndOpen('chuzu');">
 	                        <h2>出租</h2>
 	                    </a>
 	                </div>
 	                <div class="headNav"  id="fujin" style="display:none">
 	                	<!-- 附近 -->
-	                    <a class="item active" onclick="openThis('fujin','v3/fujin.html' , this);">
+	                    <a class="item active" id="fujinChushou" onclick="setFujinTypeAndOpen('chushou');">
 	                        <h2>出售</h2>
 	                    </a>
-	                    <a class="item" onclick="openThis('fujin','v3/fujinRent.html' , this);">
+	                    <a class="item" id="fujinChuzu" onclick="setFujinTypeAndOpen('chuzu');">
 	                        <h2>出租</h2>
 	                    </a>
 	                </div>
@@ -66,11 +66,11 @@
         </div>
          -->
         <div id="footer" class="footer">
-	        <a class="item active" onclick="openThis('house','v3/house.html' , this);return false;">
+	        <a class="item active" id="fangyuan" onclick="setBottomTypeAndOpen('house');return false;">
 	            <div><i class="iconfont n">&#xe605;</i><i class="iconfont y">&#xe606;</i></div>
 	            <h2>房源</h2>
 	        </a>
-	        <a class="item" onclick="openThis('fujin','v3/fujin.html' ,this);return false;">
+	        <a class="item" onclick="setBottomTypeAndOpen('fujin');return false;" id="nearby">
 	            <div><i class="iconfont n">&#xe62b;</i><i class="iconfont y">&#xe630;</i></div>
 	            <h2>附近</h2>
 	        </a>

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
     	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
 		<link rel="stylesheet" type="text/css" href="../css/houses.css" />
-		<link rel="stylesheet" type="text/css" href="../css//view.css" />
+		<!--<link rel="stylesheet" type="text/css" href="../css/searchResult.css" />-->
 		<title></title>
 		<script type="text/javascript" src="../script/jquery.js"></script>
 		
@@ -15,15 +15,15 @@
 	<script type="text/javascript" src="../script/api.js"></script>
 	<script type="text/javascript">
 	var currentPage=1;
-	var name;
+	var params;
 	var totalPageCount;
 	var fufei;
 	function loadData(clear){
-//	alert(area);
 		YW.ajax({
-				url:'http://'+server_host+'/c/mobile/rent/list?specArea='+area+'&page='+currentPage,
+				url:'http://'+server_host+'/c/mobile/rent/list?page='+currentPage,
 				method:'post',
 				cache:false,
+				data:{values:params},
 				returnAll:false
 			},function(ret , err){
 				if(ret){
@@ -38,45 +38,13 @@
 					}else{
 						buildHtmlWithJsonArray('repeat',ret.page.data , false,true);
 					}
-					api.parseTapmode(); 
 				}else{
 				}
 			});
 	}
 	
-	function SeeThis(id){
-		if(fufei){
-//			api.openWin({
-//		        name: 'infoJJR',
-//		        pageParam: {pageName: 'infoJJR',title:'详情' , id:id},
-//				url: 'wrap.html',
-//		        bgColor: '#fff'
-//		    });
-		    
-			api.openWin({
-			    name: 'infoRentJJR',
-			    bounces: false,
-			    pageParam: {id: id},
-				url: 'infoRentJJR.html'
-			});
-		}else{
-			api.openWin({
-		        name: 'infoRent',
-		        pageParam: {pageName: 'infoRent',title:'详情' , id:id},
-				url: 'wrap.html',
-		        bgColor: '#fff'
-		    });
-//			api.openWin({
-//			    name: 'info',
-//			    bounces: false,
-//			    pageParam: {id: id},
-//				url: 'info.html'
-//			});
-		}
-		$('#'+id).css('color','#999');
-     }
-	
 		apiready = function(){
+			params = api.pageParam;
 			getUserInfo(function(user){
 				if(user){
 					fufei = user.fufei;
@@ -102,15 +70,41 @@
 					loadData();
 				}
 			);
-			area = api.pageParam.area;
+			
 			loadData();
 		};
 		
-		function closexx(){
-			api.closeWin({
-			    name: 'view'
+	function SeeThis(id){
+		if(fufei){
+//			api.openWin({
+//		        name: 'infoJJR',
+//		        pageParam: {pageName: 'infoJJR',title:'详情' , id:id},
+//				url: 'wrap.html',
+//		        bgColor: '#fff'
+//		    });
+		    
+			api.openWin({
+			    name: 'infoRentJJR',
+			    pageParam: {id: id},
+				url: 'infoRentJJR.html'
+			});
+		}else{
+			api.openWin({
+		        name: 'infoRent',
+		        pageParam: {pageName: 'infoRent',title:'详情' , id:id},
+				url: 'wrap.html',
+		        bgColor: '#fff'
 		    });
+		    
+//			api.openWin({
+//			    name: 'info',
+//			    pageParam: {id: id},
+//				url: 'info.html'
+//			});
 		}
+		$('#'+id).css('color','#999');
+     }
+
 function isFufei(){
 	return fufei;
 }
@@ -125,17 +119,18 @@ function getRentType(code){
 	}
 }
 	</script>
-		
-		<div class="wrap">
+	<div class="wrap" style="height:100%">
+		<div style="width:98%;margin-left:1%;height:100%">
 		<div id="noResultMsg" style="text-align:center;display:none">没有符合条件的记录</div>
-			<div class="row repeat" style="display:none">
-				<p id="$[id]" class="area">$[area] <span show="isFufei();">&nbsp;&nbsp;$[dhao]-$[fhao]</span></p>
-				<div class="info">
-					<div>$[quyu]</div><div>$[mji]㎡</div><div>$[zjia]元</div><div runscript="true">getRentType('$[fangshi]')</div>
-				</div>
-				<div class="detail" tapmode="tapped" onclick="SeeThis('$[id]');return false;"><img class="icon" src="../image/house_detail.png"/> <span>详情</span></div>
+		<div class="row repeat" style="display:none">
+			<div id="$[id]" class="area">$[area] <span show="isFufei();">&nbsp;&nbsp;$[dhao]-$[fhao]</span></div>
+			<div class="info">
+				<div>$[quyu]</div><div>$[mji]㎡</div><div>$[zjia]元</div><div runscript="true">getRentType('$[fangshi]')</div>
 			</div>
+			<div class="detail" onclick="SeeThis('$[id]');return false;"><img class="icon" src="../image/house_detail.png"/> <span>详情</span></div>
 		</div>
+		</div>
+	</div>
 		
 	</body>
 </html>

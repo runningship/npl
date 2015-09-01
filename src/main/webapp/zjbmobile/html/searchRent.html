@@ -14,12 +14,11 @@ var mjiStart='';
 var mjiEnd='';
 var zjiaStart='';
 var zjiaEnd='';
-var djiaStart='';
-var djiaEnd='';
 var lcengStart='';
 var lcengEnd='';
 var searchText='';
 var ztai;
+var fangshi='';
 var quyus=[];
 var historySearchCount;
 function doSearch(){
@@ -28,8 +27,6 @@ function doSearch(){
 		mjiEnd = $('#mjiEnd').val();
 		zjiaStart = $('#zjiaStart').val();
 		zjiaEnd = $('#zjiaEnd').val();
-		djiaStart = $('#djiaStart').val();
-		djiaEnd = $('#djiaEnd').val();
 		lcengStart = $('#lcengStart').val();
 		lcengEnd = $('#lcengEnd').val();
 		searchText = $('#searchText').val();
@@ -47,19 +44,16 @@ function doSearch(){
 	
 		var pageParam = JSON.parse('{}');
 		pageParam.title = "搜索结果";
-		pageParam.pageName = "searchResult";
+		pageParam.pageName = "searchRentResult";
 		pageParam.mjiStart = mjiStart;
 		pageParam.mjiEnd = mjiEnd;
 		pageParam.zjiaStart = zjiaStart;
 		pageParam.zjiaEnd = zjiaEnd;
-		pageParam.djiaStart = djiaStart;
-		pageParam.djiaEnd = djiaEnd;
 		pageParam.lcengStart =lcengStart;
 		pageParam.lcengEnd = lcengEnd;
 		pageParam.search = searchText;
-		pageParam.ztai = ztai;
+		pageParam.fangshi=fangshi;
 		pageParam.quyu = quyus;
-		
 		AddSelect(pageParam);
 	    api.openWin({
 	        name: pageParam.pageName,
@@ -68,7 +62,6 @@ function doSearch(){
 	        bgColor: '#fff',
 	    });
 	},500);
-	
 	
 }
 
@@ -91,6 +84,11 @@ function AddSelect(pageParam){
 	if(searchText!=''){
 		SelectBox = SelectBox + '<span>楼盘：'+searchText+'</span>';
 	}
+	if(fangshi!=''){
+		var fangshiStr = "";
+		fangshiStr= fangshi==1? '整租':'合租';
+		SelectBox = SelectBox + '<span>方式：'+fangshiStr+'</span>';
+	}
 	if(mjiStart!=''||mjiEnd!=''){
 		if(mjiStart==''){
 			SelectBox = SelectBox + '<span>面积：小于'+mjiEnd+'</span>';
@@ -98,15 +96,6 @@ function AddSelect(pageParam){
 			SelectBox = SelectBox + '<span>面积：大于'+mjiStart+'</span>';
 		}else{
 			SelectBox = SelectBox + '<span>面积：'+mjiStart+'-'+mjiEnd+'</span>';
-		}
-	}
-	if(djiaStart!=''||djiaEnd!=''){
-		if(djiaStart==''){
-			SelectBox = SelectBox + '<span>单价：小于'+djiaEnd+'</span>';
-		}else if(mjiEnd==''){
-			SelectBox = SelectBox + '<span>单价：大于'+djiaStart+'</span>';
-		}else{
-			SelectBox = SelectBox + '<span>单价：'+djiaStart+'-'+djiaEnd+'</span>';
 		}
 	}
 	if(zjiaStart!=''||zjiaEnd!=''){
@@ -139,8 +128,9 @@ function AddSelect(pageParam){
 	api.parseTapmode();
 	
 	//save to history
+	
 	api.getPrefs({
-    	key:'searchHistory'
+    	key:'searchRentHistory'
     },function(ret,err){
     	var result = SelectBox+';';
     	if(ret.value){
@@ -154,7 +144,7 @@ function AddSelect(pageParam){
 			result = tmp;
     	}
 		api.setPrefs({
-            key:'searchHistory',
+            key:'searchRentHistory',
             value:result
         });
         historySearchCount++;
@@ -190,7 +180,7 @@ function closexx(){
 function clearHistory(){
 	$('#searchHistoryWrap').empty();
 	api.setPrefs({
-	    key:'searchHistory',
+	    key:'searchRentHistory',
 	    value:''
     });
     historySearchCount=0;
@@ -203,10 +193,9 @@ function searchByHistory(item){
 	}
 	var jsonData = JSON.parse(data);
 	//填充条件
-	
 	setTimeout(function(){
 		api.openWin({
-	        name: 'searchResult',
+	        name: 'searchRentResult',
 		    pageParam:jsonData,
 			url: 'wrap.html',
 	        bgColor: '#fff',
@@ -244,7 +233,7 @@ apiready=function(){
 	$api.fixIos7Bar($header);
     buildQuyuItems();
     api.getPrefs({
-    	key:'searchHistory'
+    	key:'searchRentHistory'
     },function(ret,err){
     	if(ret.value){
 			var arr = ret.value.split(';');
@@ -301,19 +290,13 @@ apiready=function(){
 				<td class="unit">m2</td>
 			</tr>
 			<tr class="area row">
-				<td class="label"><span>总价: </span></td>
+				<td class="label"><span>租金: </span></td>
 				<td class="input" ><input type="number" id="zjiaStart"/></td>
 				<td class="sep">-</td>
 				<td class="input" ><input type="number" id="zjiaEnd"/></td>
-				<td class="unit">万</td>
-			</tr>
-			<tr class="area row">
-				<td class="label"><span>单价: </span></td>
-				<td class="input" ><input type="number" id="djiaStart"/></td>
-				<td class="sep">-</td>
-				<td class="input"><input type="number" id="djiaEnd"/></td>
 				<td class="unit">元</td>
 			</tr>
+			
 			<tr class="area row">
 				<td class="label"><span>楼层: </span></td>
 				<td class="input"><input type="number" id="lcengStart"/></td>
@@ -321,22 +304,12 @@ apiready=function(){
 				<td class="input"><input type="number" id="lcengEnd"/></td>
 				<td class="unit">层</td>
 			</tr>
-			<!--  
-			<tr clsss="status row">
-				<td class="label"><span>状态: </span></td>
-				<td colspan="3">
-					<table style="width:100%" id="table_status">
-						<tr>
-							<td><div class="item selected" id="allStatus" onclick="selectAllStatus(this);" >全部</div></td>
-							<td><div class="item" onclick="selectStatus(this);" data="4" value="">在售</div></td>
-							<td><div class="item" onclick="selectStatus(this);" data="6">已售</div></td>
-							<td><div class="item" onclick="selectStatus(this);" data="7">停售</div></td>
-						</tr>
-					</table>
-				</td>
-				<td></td>
+			<tr class="area row">
+				<td class="label"><span>方式: </span></td>
+				<td class="input"><input style="height:15px;width:30px;" type="radio" name="fangshi" value="1" onclick="fangshi=this.value">整租</td>
+				<td class="sep">-</td>
+				<td class="input"><input style="height:15px;width:30px;" type="radio" name="fangshi" value="2"  onclick="fangshi=this.value">合租</td>
 			</tr>
-			-->
 		</table>
 		
 	</div>

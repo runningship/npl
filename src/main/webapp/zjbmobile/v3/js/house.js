@@ -1,11 +1,13 @@
 var currentPage=1;
 	var totalPageCount;
 	var fufei;
+	var searchParams = JSON.parse('{}');
 	function loadData(clear){
 		YW.ajax({
 			url:'http://'+server_host+'/c/mobile/list?page='+currentPage,
 			method:'post',
 			cache:false,
+			data:{values:searchParams},
 			returnAll:false
 		},function(ret , err){
 			if(ret){
@@ -20,13 +22,16 @@ var currentPage=1;
 				}else{
 					buildHtmlWithJsonArray('repeat',ret.page.data , false,true);
 				}
-				
 				api.parseTapmode();
 			}else{
 			}
 		});
 	}
 	
+	function setSearchParamsAndSearch(params){
+		searchParams = JSON.parse(params);
+		loadData(true);
+	}
 	function SeeThis(id){
 		if(fufei){
 			api.openWin({
