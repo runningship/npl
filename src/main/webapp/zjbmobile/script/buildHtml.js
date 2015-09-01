@@ -50,6 +50,7 @@ function buildHtmlWithJsonArray(clazz,json,removeTemplate,remainItems){
                 console.log(obj.textContent);
                 obj.textContent = "";
             }
+            $(obj).attr('runscript','false');
         // }
     });
 

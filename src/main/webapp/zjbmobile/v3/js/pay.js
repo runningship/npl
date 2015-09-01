@@ -111,6 +111,15 @@ function addChargeRecord(monthAdd , fee){
 			    name: 'user',
 			    script: 'execFrameScript("userFrame","updateDeadtime();");'
 			});
+			//到支付成功页面
+			api.openWin({
+		        name: 'payOK',
+				//url: 'order.html',
+		        pageParam: {amount: amount,paytime: ret.paytime},
+				bounces: true,
+				url: 'payOK.html',
+		        bgColor: '#fff'
+		    });
 			closexx();
 		}else{
 		}
