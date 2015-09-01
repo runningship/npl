@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../css/houses.css" />
+		<title></title>
+		<script type="text/javascript" src="../script/jquery.js"></script>
+		
+		<script type="text/javascript" src="../script/buildHtml.js"></script>
+		<script type="text/javascript" src="../script/common.js"></script>
+		<script type="text/javascript" src="js/houseRent.js"></script>
+	</head>
+	<body style="background:white">
+	<script type="text/javascript" src="../script/api.js"></script>
+		<div style="width:98%;margin-left:2%;">
+		<div id="noResultMsg" style="text-align:center;display:none">没有符合条件的记录</div>
+		<div  class="row repeat" style="display:none">
+			<p id="$[id]" class="area">$[area] <span show="isFufei();">&nbsp;&nbsp;$[dhao]-$[fhao]</span></p>
+			<div class="info">
+				<div>$[quyu]</div><div>$[mji]㎡</div><div>$[zjia]元</div><div runscript="true">getRentType('$[fangshi]')</div>
+			</div>
+			<div  class="detail" tapmode="tapped" onclick="SeeThis('$[id]');return false;">
+			<img class="icon" id="img_$[id]" src="../image/house_detail.png"/> 
+			<span >详情</span></div>
+		</div>
+		
+		</div>
+	</body>
+</html>

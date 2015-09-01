@@ -12,6 +12,19 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/layer/layer.js"></script>
 <script type="text/javascript" src="js/javascript.js"></script>
+<script type="text/javascript">
+apiready = function(){
+	var amount =api.pageParam.amount;
+	$('#payAmount').text(amount);
+	$('#paytime').text(api.pageParam.paytime);
+};
+
+function closexx(){
+	api.closeWin({
+	    name: 'payOK'
+    });
+}
+</script>
 </head>
 <body class="pay ok">
 <div id="wrap" class="bodyer">
@@ -34,15 +47,15 @@
                 </span>
                 <span class="cont">
                     <h2>支付成功！</h2>
-                    <b>2015-8-31 15:07:19</b>
+                    <b id="paytime"></b>
                 </span>
             </div>
             <ul class="payOkList">
-                <li>付款金额：<b>100</b>元</li>
+                <li>付款金额：<b id="payAmount"></b>元</li>
                 <li>付款方式：支付宝支付</li>
             </ul>
         </div>
-        <a href="index.html" class="btn orange block round5" >确定</a>
+        <a onclick="closexx();" class="btn orange block round5" >确定</a>
     </div>
 </div>
 </body>

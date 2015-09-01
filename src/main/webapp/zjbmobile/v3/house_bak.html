@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>中介宝</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/reset.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/houses.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/javascript.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/buildHtml.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="js/house.js"></script>
+</head>
+<body class="house">
+<div id="wrap" class="bodyer">
+    <div id="mainer" class="mainer">
+    	<div id="noResultMsg" style="text-align:center;display:none">没有符合条件的记录</div>
+        <ul class="Hul" >
+            <li class="row repeat" style="display:none" data-id='$[id]' onclick="SeeThis('$[id]');return false;">
+                <div class="cont">
+                    <h2>$[area] <b><span show="isFufei();">&nbsp;&nbsp;$[dhao]-$[fhao]</span></b></h2>
+                    <div class="span">
+                        <span>$[quyu]</span>
+                        <span>$[mji]㎡</span>
+                        <span>$[zjia]万</span>
+                        <span>$[lceng]层</span>
+                    </div>
+                </div>
+                <div class="side">
+                    <a href="#" class=""><i class="iconfont">&#xe625;</i></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
