@@ -64,17 +64,18 @@ var name = '';
 		}
 		name = api.pageParam.name;
 		params = api.pageParam;
-		if(type=='fav'){
+		if(type=='fav' || type=='favRent'){
 			$('#header span').html('我的收藏');
-		}else if(type=='tracks'){
+		}else if(type=='tracks' || type=='tracksRent'){
 			$('#header span').html('浏览记录');
-		}else if(type=='view'){
-			$('#header span').html('房源列表');
-			$('.setting').css('display','none');
-		}else {
-			$('#header span').html('搜索结果');
-			$('.setting').css('display','none');
 		}
+// 		else if(type=='view'){
+// 			$('#header span').html('房源列表');
+// 			$('.setting').css('display','none');
+// 		}else {
+// 			$('#header span').html('搜索结果');
+// 			$('.setting').css('display','none');
+// 		}
 		 
         api.openFrame({
             name: type,

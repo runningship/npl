@@ -22,8 +22,9 @@ var totalPageCount;
 var totalCount;
 var fufei;
 function loadData(){
+	//PService
 	YW.ajax({
-			url:'http://'+server_host+'/c/mobile/user/tracks?userId='+userId+'&currentPageNo='+currentPage,
+			url:'http://'+server_host+'/c/mobile/user/tracksRent?userId='+userId+'&currentPageNo='+currentPage,
 			method:'post',
 			cache:false,
 			returnAll:false
@@ -93,7 +94,7 @@ function delItems(){
 	return;
 	});
 	YW.ajax({
-			url:'http://'+server_host+'/c/mobile/user/deltracks?chuzu=0&hid='+Ids+'&userId='+userId,
+			url:'http://'+server_host+'/c/mobile/user/deltracks?chuzu=1&hid='+Ids+'&userId='+userId,
 			method:'post',
 			cache:false,
 			returnAll:false
@@ -121,15 +122,15 @@ function delItems(){
 		if(fufei){
 		    
 			api.openWin({
-			    name: 'infoJJR',
+			    name: 'infoRentJJR',
 			    pageParam: {id: id},
 			    delay:300,
-				url: 'infoJJR.html'
+				url: 'infoRentJJR.html'
 			});
 		}else{
 			api.openWin({
-		        name: 'info',
-		        pageParam: {pageName: 'info',title:'详情' , id:id},
+		        name: 'infoRent',
+		        pageParam: {pageName: 'infoRent',title:'详情' , id:id},
 				url: 'wrap.html',
 				delay:300,
 		        bgColor: '#fff'
@@ -163,6 +164,16 @@ apiready=function(){
 	    loadData();
 	});
 };
+
+function getRentType(code){
+	if(code=='1'){
+		return '整租';
+	}else if(code=='2'){
+		return '合租';
+	}else{
+		return code;
+	}
+}
 </script>
 </head>
 <body>
@@ -180,7 +191,7 @@ apiready=function(){
 			<div>
 				<p id="id_$[id]" class="area"><span>$[area]</span><span show="isFufei();">&nbsp;&nbsp;$[dhao]-$[fhao]</span></p>
 				<p class="info2">
-					<span>$[quyu]</span><span>$[mji]㎡</span><span>$[zjia]万</span><span>$[lceng]层</span>
+					<span>$[quyu]</span><span>$[mji]㎡</span><span>$[zjia]元</span><span runscript="true">getRentType('$[fangshi]')</span>
 				</p>
 				<div tapmode="tapped"  class="detail" onclick="SeeThis('$[id]');return false;"><img class="icon" src="../image/house_detail.png"/> <span>详情</span></div>
 			</div>

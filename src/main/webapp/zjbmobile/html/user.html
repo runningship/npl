@@ -71,11 +71,31 @@ function closexx(){
 }
 
 	function SeeThis(type){
-        api.openWin({
-            name: 'wrap_wode',
-            pageParam: {type: type},
-			url: 'wrap_wode.html',
-            bgColor: '#fff'
+//         api.openWin({
+//             name: 'wrap_wode',
+//             pageParam: {type: type},
+// 			url: 'wrap_wode.html',
+//             bgColor: '#fff'
+//         });
+        api.actionSheet({
+            cancelTitle: '取消',
+            buttons: ['出售','出租']
+        },function(ret,err){
+        	if(ret.buttonIndex==1){
+        		api.openWin({
+		             name: 'wrap_wode',
+		             pageParam: {type: type},
+		 			url: 'wrap_wode.html',
+		             bgColor: '#fff'
+		         });
+        	}else if(ret.buttonIndex==2){
+        		api.openWin({
+		             name: 'wrap_wode',
+		             pageParam: {type: type+'Rent'},
+		 			url: 'wrap_wode.html',
+		             bgColor: '#fff'
+		         });
+        	}
         });
      }
 	
@@ -191,7 +211,7 @@ function openPwdWin(){
 		<tr class="my">
 			<td width="49%"><div class="menu" tapmode="tapped" onclick="SeeThis('fav');">我的收藏</div></td>
 			<td><span class="sep">|</span></td>
-			<td width="49%"><div class="menu" tapmode="tapped" onclick="SeeThis('tracks');">我的记录</div></td>
+			<td width="49%"><div class="menu" tapmode="tapped" onclick="SeeThis('tracks');">我的足迹</div></td>
 		</tr>
 	</table>
 	
