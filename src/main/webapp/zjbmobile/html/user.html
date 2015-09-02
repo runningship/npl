@@ -10,7 +10,11 @@
 <script type="text/javascript">
 var payWay='offline';
 apiready=function(){
+	api.closeWin({
+		name:'login'
+    });
 	getUserInfo(function(user){
+		
 		$('#uname').text(user.uname);
 		$('#tel').text(user.tel);
 		payWay = user.payWay;
@@ -42,13 +46,6 @@ apiready=function(){
 			$('#deadtime').text($('#deadtime').text()+'(已过期)');
 			$('#deadtime').css('color','red');
 		}
-//		blockAlert('fewf');
-		setTimeout(function(){
-			api.closeWin({
-				name:'login'
-	        });
-		},2000);
-		
 	});
 	
 	
@@ -65,9 +62,12 @@ function updateDeadtime(){
 	});
 }
 function closexx(){
-	api.closeToWin({
-	    name: 'root'
-    });
+// 	api.closeToWin({
+// 	    name: 'root'
+//     });
+	api.closeWin({
+	   name: 'user'
+	});
 }
 
 	function SeeThis(type){

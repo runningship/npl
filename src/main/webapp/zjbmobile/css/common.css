@@ -31,9 +31,8 @@ html,body{
 #footer{
     width: 100%;
     text-align: center;
-      width: 98%;
   margin-left: auto;
-  margin-right: auto;height:50px;line-height:46px;border-top: 7px solid #eee;
+  margin-right: auto;height:50px;line-height:46px;border-top: 4px solid #eee;
 }
 #footer h5{
     color: white;

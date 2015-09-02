@@ -24,7 +24,6 @@ function doLogin(){
 		returnAll:false
 	},function(ret , err){
 		if(ret && ret.result==0){
-			setTimeout(function(){
 				api.setPrefs({
 				    key: 'tel',
 				    value: tel
@@ -46,16 +45,14 @@ function doLogin(){
 				    name: 'root',
 				    script: 'refreshHouses();'
 				});
-				
+				//closexx();
         		api.openWin({
 			        name: 'user',
+			        delay:1000,
 			        pageParam: ret,
 					url: '../html/wrap.html',
 			        bgColor: '#fff'
 			    });
-			},300);
-				
-		        
 		}else{
 			alert(ret.msg);
 		}
