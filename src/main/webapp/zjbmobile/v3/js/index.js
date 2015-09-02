@@ -227,7 +227,7 @@ var header,
     function refreshHouses(){
 //  	alert(222);
     	api.execScript({
-		    frameName: 'houses',
+		    frameName: 'house',
 		    script: 'refreshPage();'
 		});
     }

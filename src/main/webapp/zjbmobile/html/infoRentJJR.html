@@ -42,10 +42,7 @@
 						$('#mji').html(ret.mji+'m²');
 					}
 					if(ret.zjia){
-						$('#zjia').html(ret.zjia+'万');
-					}
-					if(ret.djia){
-						$('#djia').html(ret.djia+'元');
+						$('#zjia').html(ret.zjia+'元');
 					}
 					if(ret.lceng){
 						$('#lceng').html(ret.lceng+'层');
@@ -103,7 +100,7 @@
 	
 	function closexx(){
 		api.closeWin({
-		    name: 'infoJJR'
+		    name: 'infoRentJJR'
 	    });
 	}
 	
@@ -148,8 +145,8 @@
 	
 	function openGenJin(){
 		api.openWin({
-		    name: 'genjin',
-		    pageParam:{hid:hid,area:area,fdhao:fdhao , pageName:'genjin',title:area+fdhao},
+		    name: 'genjinRent',
+		    pageParam:{hid:hid,area:area,fdhao:fdhao , pageName:'genjinRent',title:area+fdhao},
 			url: 'wrap.html'
 		});
 	}

@@ -23,11 +23,12 @@
 			alert('请先填写跟进信息');
 			return;
 		}
+		blockAlert('http://'+server_host+'/c/mobile/addRentGj');
 		api.ajax({
-			url:'http://'+server_host+'/c/mobile/house/genjin/add?chuzu=0',
+			url:'http://'+server_host+'/c/mobile/addRentGj',
 			method:'post',
 			data:{
-	        	values: {userId:uid,houseId:hid,type:status,content:conts}
+	        	values: {uid:uid,hid:hid,flag:status,conts:conts,chuzu:1}
 	    	},
 			cache:false,
 			returnAll:false
@@ -36,7 +37,7 @@
 				$('#conts').val('');
 				alert('跟进成功');
 				api.execScript({
-				    name: 'infoJJR',
+				    name: 'infoRentJJR',
 				    script: 'reloadPage()'
 				});
 			}else{
@@ -62,7 +63,7 @@
 	});
 	function closexx(){
 		api.closeWin({
-		    name: 'genjin'
+		    name: 'genjinRent'
 	    });
 	}
 	
@@ -73,9 +74,9 @@
 	</div>-->
 	<div class="wrap" style="top:5px;">
 		<div class="status">
-			<div data="4" class="btn selected">在售</div>
-			<div data="6" class="btn">已售</div>
-			<div data="7" class="btn">停售</div>
+			<div data="1" class="btn selected">在租</div>
+			<div data="2" class="btn">已租</div>
+			<div data="3" class="btn">停租</div>
 		</div>
 		<div>
 			<textarea id="conts"></textarea>
