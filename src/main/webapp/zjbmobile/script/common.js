@@ -1,5 +1,5 @@
 //var server_host = "mobile.zjb.tunnel.mobi";
-var server_host = "192.168.1.222:8081";
+var server_host = "www.zhongjiebao.com:8081";
 //定位所在城市
 var myCity;
 

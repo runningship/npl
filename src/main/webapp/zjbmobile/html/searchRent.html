@@ -18,6 +18,8 @@ var lcengStart='';
 var lcengEnd='';
 var searchText='';
 var ztai;
+var fhao='';
+var dhao='';
 var fangshi='';
 var quyus=[];
 var historySearchCount;
@@ -30,6 +32,8 @@ function doSearch(){
 		lcengStart = $('#lcengStart').val();
 		lcengEnd = $('#lcengEnd').val();
 		searchText = $('#searchText').val();
+		fhao = $('#fhao').val();
+		dhao = $('#dhao').val();
 		var tmp = [];
 		$('#table_status .selected').each(function(){
 			tmp.push($(this).attr('data'));
@@ -53,6 +57,8 @@ function doSearch(){
 		pageParam.lcengEnd = lcengEnd;
 		pageParam.search = searchText;
 		pageParam.fangshi=fangshi;
+		pageParam.fhao = fhao;
+		pageParam.dhao = dhao;
 		pageParam.quyu = quyus;
 		AddSelect(pageParam);
 	    api.openWin({
@@ -83,6 +89,12 @@ function AddSelect(pageParam){
 	}
 	if(searchText!=''){
 		SelectBox = SelectBox + '<span>楼盘：'+searchText+'</span>';
+	}
+	if(dhao!=''){
+		SelectBox = SelectBox + '<span>栋号：'+dhao+'</span>';
+	}
+	if(fhao!=''){
+		SelectBox = SelectBox + '<span>房号：'+fhao+'</span>';
 	}
 	if(fangshi!=''){
 		var fangshiStr = "";
@@ -283,6 +295,12 @@ apiready=function(){
 		</table>
 		<table id="status_table" style="width:100%;">
 			<tr class="area row">
+				<td class="label"><span>方式: </span></td>
+				<td class="input"><input style="height:15px;width:30px;" type="radio" name="fangshi" value="1" onclick="fangshi=this.value">整租</td>
+				<td class="sep">-</td>
+				<td class="input"><input style="height:15px;width:30px;" type="radio" name="fangshi" value="2"  onclick="fangshi=this.value">合租</td>
+			</tr>
+			<tr class="area row">
 				<td class="label"><span>面积: </span></td>
 				<td class="input"><input type="number" id="mjiStart"/></td>
 				<td class="sep">-</td>
@@ -304,11 +322,13 @@ apiready=function(){
 				<td class="input"><input type="number" id="lcengEnd"/></td>
 				<td class="unit">层</td>
 			</tr>
-			<tr class="area row">
-				<td class="label"><span>方式: </span></td>
-				<td class="input"><input style="height:15px;width:30px;" type="radio" name="fangshi" value="1" onclick="fangshi=this.value">整租</td>
+			
+			<tr class="area row" id="others" style="display:none">
+				<td class="label"><span>其他: </span></td>
+				<td class="input"><input type="text" id="dhao" placeholder="栋号"/></td>
 				<td class="sep">-</td>
-				<td class="input"><input style="height:15px;width:30px;" type="radio" name="fangshi" value="2"  onclick="fangshi=this.value">合租</td>
+				<td class="input"><input type="text" id="fhao" placeholder="房号"/></td>
+				<td class="unit"></td>
 			</tr>
 		</table>
 		

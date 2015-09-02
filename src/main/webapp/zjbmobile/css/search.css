@@ -4,7 +4,7 @@
 .header a{  float: right;
   color: #ddd;
   font-weight: normal;}
-  
+  #wrap{min-height:750px;}
 #searchText{height:40px;border:none;float:left;font-size:18px;}
 .search{float:right;margin-right:10px;}
 .searchPanel{color:#888;margin-top:10px;  width: 96%;   margin-left: auto;margin-right:auto;}
@@ -46,7 +46,7 @@ background-color: #73d0f1;border-radius: 5px;
 table .label{width:50px;text-align:left;}
 table .sep{width:20px;text-align:center}
 table .unit{text-align:left;padding-left:8px;}
-table input{width:92%;height:30px;line-height:30px;  border-radius: 6px;
+table input{width:92%;height:30px;line-height:30px;  border-radius: 6px;text-align:center;
   border: 1px solid #ccc;}
 
 #status_table{text-align:center;}

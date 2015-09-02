@@ -19,6 +19,9 @@ var djiaEnd='';
 var lcengStart='';
 var lcengEnd='';
 var searchText='';
+var fhao='';
+var dhao='';
+var mobileTel='';
 var ztai;
 var quyus=[];
 var historySearchCount;
@@ -33,6 +36,9 @@ function doSearch(){
 		lcengStart = $('#lcengStart').val();
 		lcengEnd = $('#lcengEnd').val();
 		searchText = $('#searchText').val();
+		fhao = $('#fhao').val();
+		dhao = $('#dhao').val();
+		mobileTel =$('#mobileTel').val();
 		var tmp = [];
 		$('#table_status .selected').each(function(){
 			tmp.push($(this).attr('data'));
@@ -57,7 +63,10 @@ function doSearch(){
 		pageParam.lcengStart =lcengStart;
 		pageParam.lcengEnd = lcengEnd;
 		pageParam.search = searchText;
-		pageParam.ztai = ztai;
+		//pageParam.ztai = ztai;
+		pageParam.fhao = fhao;
+		pageParam.dhao = dhao;
+		pageParam.mobileTel = mobileTel;
 		pageParam.quyu = quyus;
 		
 		AddSelect(pageParam);
@@ -90,6 +99,15 @@ function AddSelect(pageParam){
 	}
 	if(searchText!=''){
 		SelectBox = SelectBox + '<span>楼盘：'+searchText+'</span>';
+	}
+	if(dhao!=''){
+		SelectBox = SelectBox + '<span>栋号：'+dhao+'</span>';
+	}
+	if(fhao!=''){
+		SelectBox = SelectBox + '<span>房号：'+fhao+'</span>';
+	}
+	if(mobileTel!=''){
+		SelectBox = SelectBox + '<span>电话：'+mobileTel+'</span>';
 	}
 	if(mjiStart!=''||mjiEnd!=''){
 		if(mjiStart==''){
@@ -240,6 +258,12 @@ getCityInfo(function(city){
 });
 }
 apiready=function(){
+	getUserInfo(function(user){
+		if(user.fufei){
+			$('#others').css('display','');
+			$('#tel').css('display','');
+		}
+	});
 	var $header = $api.dom('header');
 	$api.fixIos7Bar($header);
     buildQuyuItems();
@@ -320,6 +344,17 @@ apiready=function(){
 				<td class="sep">-</td>
 				<td class="input"><input type="number" id="lcengEnd"/></td>
 				<td class="unit">层</td>
+			</tr>
+			<tr class="area row" id="others" style="display:none">
+				<td class="label"><span>其他: </span></td>
+				<td class="input"><input type="text" id="dhao" placeholder="栋号"/></td>
+				<td class="sep">-</td>
+				<td class="input"><input type="text" id="fhao" placeholder="房号"/></td>
+				<td class="unit"></td>
+			</tr>
+			<tr class="area row" id="tel" style="display:none">
+				<td class="label"><span>电话: </span></td>
+				<td class="input" colspan="3"><input type="text" id="mobileTel" style="width:96%"/></td>
 			</tr>
 			<!--  
 			<tr clsss="status row">

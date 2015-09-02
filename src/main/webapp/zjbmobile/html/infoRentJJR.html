@@ -65,6 +65,10 @@
 					    	xx.tel = tels[i];
 					    	tel_json.push(xx);
 					    }
+					    if(ret.telImg && !ret.tel){
+					    	$('#telImg').css('display','');
+					    	$('#telImg img').attr("src",ret.telImg);
+					    }
 					buildHtmlWithJsonArray('tel_repeat',tel_json , false,true);
 					api.parseTapmode();
 					if(ret.isfav=='1'){
@@ -220,6 +224,9 @@
 			</tr>
 			<tr class="tel_repeat" style="display:none">
 				<td class="label">电话: </td><td style="position:relative"><a href="#" tapmode="tapped" onclick="call('$[tel]');">$[tel]</a> <img src="../image/phone2.png" onclick="call('$[tel]');" tapmode="tapped" class="callBtn"/></td>
+			</tr>
+			<tr id="telImg" style="display:none">
+				<td class="label">电话: </td><td><img src=""/></td>
 			</tr>
 		</table>
 		
