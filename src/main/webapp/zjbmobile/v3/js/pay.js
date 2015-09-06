@@ -23,8 +23,8 @@ var uid;
 
 function aliPay(){
 	var obj = api.require('aliPay');
-	var subject = '中介宝手机版费用';
-	var body = '中介宝手机版费用';
+	var subject = '中介宝手机版费用'+userInfo.tel;
+	var body = '中介宝手机版费用'+userInfo.tel;
 	var tradeNO = new Date().getTime();
 	var notifyURL = 'http://'+server_host+'/c/mobile/user/alipayCallback'
 	
@@ -122,6 +122,10 @@ function addChargeRecord(monthAdd , fee){
 		    });
 			closexx();
 		}else{
+			alert('重试同步数据..');
+			setTimeout(function(){
+				addChargeRecord(monthAdd , fee);
+			},1000);
 		}
 	});
 }
