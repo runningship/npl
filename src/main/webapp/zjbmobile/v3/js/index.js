@@ -177,10 +177,16 @@ var header,
     function openUserInfo(){
     	getUserInfo(function(user){
     		if(user && user.online){
+//    			api.openWin({
+//			        name: 'user',
+//			        pageParam: {pageName: 'user',title:'我的'},
+//					url: urlPrefix+'html/wrap.html',
+//					delay:300,
+//			        bgColor: '#fff'
+//			    });
     			api.openWin({
 			        name: 'user',
-			        pageParam: {pageName: 'user',title:'我的'},
-					url: urlPrefix+'html/wrap.html',
+					url: urlPrefix+'v3/ucenter.html',
 					delay:300,
 			        bgColor: '#fff'
 			    });

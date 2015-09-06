@@ -13,12 +13,14 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/layer/layer.js"></script>
 <script type="text/javascript" src="js/javascript.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="js/user.js"></script>
 </head>
 <body class="ucenter">
 <div id="wrap" class="bodyer">
     <div id="header" class="header">
-        <span class="left">
-            <a href="default.html" class="btns"><i class="iconfont">&#xe628;</i></a>
+        <span class="left" onclick="closexx();">
+            <a href="#" class="btns"><i class="iconfont">&#xe628;</i></a>
         </span>
         <span class="conter">
             个人中心
@@ -32,32 +34,36 @@
             <div class="uconts">
                 <span class="icon"><img src="images/logo_ico.png" alt=""></span>
                 <span class="uTxt">
-                    <h2>我的名字</h2>
-                    <p class="utel">15555139921</p>
-                    <p class="enTime">2015-8-31 到期</p>
+                    <h2 id="uname"></h2>
+                    <p class="utel" id="tel"></p>
+                    <p class="enTime" id="deadTimeWrap"></p>
+                    <p id="compWrap" ><span id="cname">中介宝</span> <span id="dname">技术中心</span></p>
                 </span>
             </div>
             <div class="btnbox">
-                <a href="#" class="btn br1">
+                <a href="#" class="btn br1" onclick="SeeThis('fav');">
                     <i class="iconfont">&#xe617;</i>
-                    收藏房源
+                    我的收藏
                 </a>
-                <a href="#" class="btn">
-                    <i class="iconfont">&#xe63a;</i>
-                    查看记录
+                <a href="#" class="btn" onclick="SeeThis('tracks');">
+                    <i class="iconfont">&#xe63f;</i>
+                    我的足迹
                 </a>
             </div>
         </div>
-        <ul class="menuList">
-			<li><a href="#"><i class="iconfont violet">&#xe61d;</i> 消息</a><span><i class="iconfont">&#xe62a;</i></span></li>
-			<li><a href="#"><i class="iconfont green">&#xe614;</i> 账户</a><span><i class="iconfont">&#xe62a;</i></span></li>
-			<li><a href="#"><i class="iconfont blue">&#xe61c;</i> 设置</a><span><i class="iconfont">&#xe62a;</i></span></li>
-            <li><a href="#"><i class="iconfont green">&#xe63e;</i> 缓存</a><span><i class="iconfont">&#xe62a;</i></span></li>
-            <li><a href="#"><i class="iconfont green">&#xe63d;</i> 分享</a><span><i class="iconfont">&#xe62a;</i></span></li>
+        <ul class="menuList" id="bottomAll">
+        	<li onclick="xufei();" ><a href="#"><i class="iconfont green">&#xe614;</i> 充值续费</a><span><i class="iconfont">&#xe62a;</i></span></li>
+        	<li onclick="openModifyPwd();"><a href="#"><i class="iconfont blue">&#xe61c;</i> 修改密码</a><span><i class="iconfont">&#xe62a;</i></span></li>
+        	<li onclick="clearCache();"><a href="#"><i class="iconfont green">&#xe63e;</i> 清空缓存</a><span><i class="iconfont">&#xe62a;</i></span></li>
+        	<li onclick="ShareUs();"><a href="#"><i class="iconfont violet">&#xe63d;</i> 推荐我们</a><span><i class="iconfont">&#xe62a;</i></span></li>
+        </ul>
+        <ul class="menuList" style="display:none" id="bottomIOS">
+        	<li onclick="openModifyPwd();"><a href="#"><i class="iconfont blue">&#xe61c;</i> 修改密码</a><span><i class="iconfont">&#xe62a;</i></span></li>
+        	<li onclick="ShareUs();"><a href="#"><i class="iconfont violet">&#xe63d;</i> 推荐我们</a><span><i class="iconfont">&#xe62a;</i></span></li>
         </ul>
     </div>
     <div id="footer" class="footer">
-		<a href="#" class="btn white block">退出当前账号</a>
+    	<a href="#" class="btn white block"  tapmode="tapped" onclick="logout();">退出当前账号</a>
     </div>
 </div>
 </body>

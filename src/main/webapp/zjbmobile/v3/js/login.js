@@ -45,13 +45,19 @@ function doLogin(){
 				    name: 'root',
 				    script: 'refreshHouses();'
 				});
-				//closexx();
+//        		api.openWin({
+//			        name: 'user',
+//			        delay:1000,
+//			        pageParam: ret,
+//					url: '../html/wrap.html',
+//			        bgColor: '#fff'
+//			    });
+				
         		api.openWin({
 			        name: 'user',
-			        delay:1000,
+			        //delay:1000,
 			        pageParam: ret,
-					url: '../html/wrap.html',
-			        bgColor: '#fff'
+					url: 'ucenter.html'
 			    });
 		}else{
 			alert(ret.msg);

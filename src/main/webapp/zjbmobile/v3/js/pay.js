@@ -42,7 +42,7 @@ function aliPay(){
 	    subject:subject,
 	    body:body,
 	    //amount:amount,
-	    amount: 0.01,
+	    amount: amount,
 	    tradeNO:tradeNO
 	},function(ret,err) {
 		if(ret.statusCode=='9000' ){
