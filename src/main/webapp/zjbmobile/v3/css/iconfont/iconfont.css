@@ -19,6 +19,7 @@
 .icon-ditu:before { content: "\e600"; }
 .icon-gerenziliao:before { content: "\e60f"; }
 .icon-dianhua:before { content: "\e610"; }
+.icon-fenxiang:before { content: "\e63c"; }
 .icon-yuanxingjiantoushang:before { content: "\e611"; }
 .icon-yuanxingjiantouxia:before { content: "\e612"; }
 .icon-suo:before { content: "\e60a"; }
@@ -43,7 +44,9 @@
 .icon-map:before { content: "\e601"; }
 .icon-sousuo:before { content: "\e602"; }
 .icon-you1:before { content: "\e62a"; }
+.icon-fenxiang1:before { content: "\e63d"; }
 .icon-suo1:before { content: "\e622"; }
+.icon-qingchuyuhuancun:before { content: "\e63e"; }
 .icon-zuobiao:before { content: "\e62b"; }
 .icon-zuozuo:before { content: "\e62c"; }
 .icon-home:before { content: "\e603"; }
@@ -51,6 +54,7 @@
 .icon-fangshijilu:before { content: "\e639"; }
 .icon-chenggong:before { content: "\e61b"; }
 .icon-kehujingli:before { content: "\e604"; }
+.icon-zuji:before { content: "\e63f"; }
 .icon-fanhuiyou:before { content: "\e62d"; }
 .icon-zhifubao:before { content: "\e633"; }
 .icon-fangziline:before { content: "\e605"; }
@@ -70,7 +74,9 @@
 .icon-fujin1:before { content: "\e60b"; }
 .icon-zuobiao1:before { content: "\e630"; }
 .icon-xitongwotongbu:before { content: "\e60c"; }
+.icon-iconzuji01:before { content: "\e640"; }
 .icon-fujin:before { content: "\e60d"; }
+.icon-qingli:before { content: "\e641"; }
 .icon-zhifubao1:before { content: "\e637"; }
 .icon-xuanzekuang:before { content: "\e634"; }
 .icon-wechaticon24:before { content: "\e635"; }
