@@ -22,7 +22,6 @@ apiready=function(){
 //			$('#compWrap').css('display','none');
 //			$('.account').css('height','144px');
 //		}
-		
 		if(user.mobileDeadtime){
 			$('#deadtime').text(user.mobileDeadtime);
 		}else{
