@@ -43,7 +43,7 @@ var currentPage=1;
 		}else{
 			api.openWin({
 		        name: 'info',
-		        pageParam: {pageName: 'info',title:'详情' , id:id},
+		        pageParam: {pageName: 'info',title:'出售' , id:id},
 				url: '../html/wrap.html',
 				delay:300,
 		        bgColor: '#fff'

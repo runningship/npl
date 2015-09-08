@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<link href="../v3/css/reset.css" rel="stylesheet">
+	<link href="../v3/css/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../css/search.css" />
 <title></title>
 <script type="text/javascript" src="../script/jquery.js"></script>
@@ -270,16 +272,15 @@ apiready=function(){
 };
 </script>
 </head>
-<body>
-	<div id="wrap">
-	<div class="header" style="margin-top:15px;">
-		<table style="width:100%;border-spacing:0px;">
-			<tr>
-				<td style="width:40px;"><img onclick="closexx();" class="back" src="../image/back.png"/></td>
-				<td><input placeholder="楼盘名称" id="searchText" /></td>
-				<td style="width:40px;"><img onclick="doSearch();" class="search" src="../image/search.png" /></td>
-			</tr>
-		</table>
+<body class="search">
+	<div id="wrap" class="bodyer">
+	<div class="header" >
+		<span class="left" onclick="closexx();">
+            <a href="#" class="btns"><i class="iconfont">&#xe628;</i></a>
+        </span>
+        <span class="conter">
+            <input type="text" class="input"  id="searchText"  placeholder="楼盘名称"><a href="#" onclick="doSearch();" class="btn"><i class="iconfont">&#xe602;</i></a>
+        </span>
 	</div>
 	
 	<div class="searchPanel">

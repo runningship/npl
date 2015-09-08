@@ -12,7 +12,6 @@ var header,
 		
     	api.clearCache(
 		    function(ret,err){
-		        alert('clear cache');
 		    }
 		);
 

@@ -3,8 +3,10 @@
 	<head>
 		<meta charset="utf-8">
     	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-		<link rel="stylesheet" type="text/css" href="../css/info.css" />
-		<link rel="stylesheet" type="text/css" href="../css/box.css" />
+				<link href="../v3/css/reset.css" rel="stylesheet">
+	<link href="../v3/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/info.css" />
+	<link rel="stylesheet" type="text/css" href="../css/box.css" />
 		<link rel="stylesheet" type="text/css" href="../css/common.css" />
 		<title></title>
 		<script type="text/javascript" src="../script/jquery.js"></script>
@@ -188,17 +190,19 @@
 	</script>
 <div class="body">
 <div id="wrap">
-	<div class="header" style="margin-top:10px;">
-		<img onclick="closexx();" class="back" src="../image/back.png"/><div class="title" style="color: black;font-weight:normal;padding-right:20px;">详情</div>
+	<div class="header" >
+		<span class="left">
+	            <a onclick="closexx();" class="btns"><i class="iconfont">&#xe628;</i></a>
+	        </span>
+            <span id="title" class="title conter" style="">出租
+            </span>
+            <span class="right"><a onclick="closexx();" class="btns"><i class="iconfont"></i></a>
+        	</span>
 	</div>
 	<div class="wrap" style="top:62px;">
-		<table style="width:98%">
-			<tr>
-				<td class="label">楼盘: </td><td id="area" colspan="3"></td>
-			</tr>
-			<tr>
-				<td  colspan="4"><span class="label">发布时间: </span><span id="dateadd"></span></td>
-			</tr>
+		<h1 id="area" ><b></b></h1>
+        <p id="dateadd" class="times"></p>
+		<table style="width:98%;margin-top:10px;">
 			<tr>
 				<td class="label">区域: </td><td id="quyu"></td><td class="label">户型: </td><td id="hxing"></td>
 			</tr>

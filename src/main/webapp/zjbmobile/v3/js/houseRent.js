@@ -54,7 +54,7 @@ var currentPage=1;
 		}else{
 			api.openWin({
 		        name: 'infoRent',
-		        pageParam: {pageName: 'infoRent',title:'详情' , id:id},
+		        pageParam: {pageName: 'infoRent',title:'出租' , id:id},
 				url: '../html/wrap.html',
 				delay:300,
 		        bgColor: '#fff'

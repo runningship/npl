@@ -21,7 +21,24 @@ var uid;
 	    });
 	}
 
+function aliPayIOS(){
+	var subject = '中介宝手机版费用'+userInfo.tel;
+	var body = '中介宝手机版费用'+userInfo.tel;
+	
+	var url = 'http://'+server_host+'/v/pay/submit.html?defaultbank=CMB&uid='+userInfo.uid+'&notify_url=http://'+server_host+'/v/pay/return_url.html&return_url=http://'+server_host+'/v/pay/return_url.html&seller_email=912958811@qq.com&out_trade_no='+new Date().getTime()+'&subject='+subject+'&clientType=mobile&total_fee=0.01&body='+body;
+	blockAlert(url);
+	api.openWin({
+	    name: 'aliWebPay',
+		url: url
+	});
+}
+	
 function aliPay(){
+	
+//	if(api.systemType=='ios'){
+//		aliPayIOS();
+//		return;
+//	}
 	var obj = api.require('aliPay');
 	var subject = '中介宝手机版费用'+userInfo.tel;
 	var body = '中介宝手机版费用'+userInfo.tel;

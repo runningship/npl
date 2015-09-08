@@ -1,6 +1,7 @@
 body {
 margin :0px;
 background-color:white;
+font:14px/1.5em 'Microsoft Yahei',"微软雅黑","黑体"
 }
 .tel{  height: 45px;line-height: 40px;text-align:center;border-bottom: 1px solid lightskyblue;}
 .tel .title{height:40px;float:left;font-weight: bold;font-family: 微软雅黑;font-size:30px;color:lightskyblue}
@@ -9,7 +10,7 @@ background-color:white;
 
 .wrap{padding-left:6px;padding-right: 6px;}
 .wrap .label{color:#888;width:50px;font-size:14px; }
-.call{background-color:lightskyblue;height:50px;line-height:50px;color:white;text-align:center;
+.call{background-color:lightskyblue;height:44px;line-height:44px;color:white;text-align:center;background: #FF6100;border-radius: 5px;
   width: 96%;
   bottom: 20px;border:none;  margin-left: auto;
   margin-right: auto;
@@ -37,7 +38,7 @@ table tr{height:30px;}
 .bottom span{font-size:14px;}
 .bottom {width:100%;background-color:white;border-top:3px solid #DDDDDD}
 
-.footer{
+.infoJJRfooter{
   bottom: 0px;
   width: 100%;
   background-color: white;
@@ -48,3 +49,24 @@ table tr{height:30px;}
 .bottom2 .icon{margin-right:15px;height:16px;  vertical-align: middle;margin-top:-2px;}
 
 .tapped{background-color: steelblue}
+
+h1{
+	  font-size: 20px;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #DFDFDF;
+  margin: 0 0px;
+  font-weight:normal;
+}
+
+h1 b{
+	font-weight: normal;
+  font-size: 16px;
+}
+
+.times{
+	  text-align: center;
+  color: #9F9F9F;
+  margin-top: 0px;
+}

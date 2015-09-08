@@ -13,11 +13,11 @@ html,body{
 }
 .header{
     color: #fff;
-      width: 98%;
+      width: 100%;
   margin-left: auto;
   margin-right: auto;
   height:60px;line-height:60px;
-  border-bottom: 5px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 #main{
     -webkit-box-flex: 1; 
