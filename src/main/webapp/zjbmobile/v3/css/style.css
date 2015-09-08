@@ -172,9 +172,18 @@ box-orient:horizontal;
 .house.see .mainer .contbox{ padding: 30px 20px 0; }
 .house.see .footer{ border: none; display: block; height: 75px; line-height: 75px; overflow: visible;height: auto;padding: 8px 10px; }
 .house.see .footer .tip{line-height: 1.5em; font-size: 14px; text-align: center;color: #F00; padding-bottom: 0px;}
-.house.see .footer .tip .btn{margin-bottom: 1px; padding: 2px 10px; font-size: 14px; height: auto; line-height: 1.5em; border-radius: 5px 5px 0 0; background: #FF3200; } 
+.house.see .footer .tip .btn{margin-bottom: 1px; padding: 2px 10px; font-size: 14px; height: auto; line-height: 1.5em; border-radius: 5px; background: #FF3200; } 
 .house.see .footer .round5{letter-spacing:3px;}
 
+.house.see .comment{ margin-top: 10px;}
+.house.see .comment h2{ background-color: #EFEFEF; color: #7F7F7F; padding:5px 10px; border-top: 1px solid #8FD2FF;
+    border-bottom: 1px solid #EFEFEF; background-color: #F6F6F6; }
+.house.see .comment .list li{ border-bottom: 1px dashed #EFEFEF; padding: 5px 10px; }
+.house.see .comment .list li h3{ color: #4899D0; }
+.house.see .comment .list li p{}
+.house.see .comment .list li span{ color: #CFCFCF; font-size:12px; }
+.house.see .comment .noComment { text-align: center; }
+.house.see .comment .noComment i{ font-size: 50px; line-height: 60px; color: #7F7F7F; }
 
 /* ucenter */
 .ucenter .headbox{ background: #21BEF8; color: #FFF; text-align: center; padding: 30px 0 0; }
