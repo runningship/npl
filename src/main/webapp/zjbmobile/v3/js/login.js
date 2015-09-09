@@ -102,6 +102,22 @@ apiready=function(){
     	}
     });
     deviceId = api.deviceId;
+    if(api.systemType=='ios'){
+		//ios版审核未上线
+    	YW.ajax({
+    		url:'http://'+server_host+'/c/mobile/user/isIOSOnline',
+    		method:'get',
+    		cache:false
+    	},function(ret , err){
+    		if(ret && ret.iosOnline){
+    			$('#login').css('display','');
+    		}else{
+    			
+    		}
+    	});
+	}else{
+		$('#login').css('display','');
+	}
 };
 function closexx(){
 	api.closeWin({

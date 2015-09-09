@@ -8,7 +8,9 @@ apiready=function(){
 		$('#tel').text(user.tel);
 		payWay = user.payWay;
 		if(api.systemType=='ios' && payWay!='online'){
+			//ios版离线支付方式
 			$('#bottomIOS').css("display","");
+			$('#deadTimeWrap').css('display','none');
 		}else{
 			$('#bottomAll').css("display","");
 		}

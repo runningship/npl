@@ -59,7 +59,7 @@ var currentPage=1;
 				}
 			});
 			api.setRefreshHeaderInfo({
-				loadingImg: 'widget://image/loading.jpg'
+				//loadingImg: 'widget://image/loading.jpg'
 				//bgColor:'white'
 				},
 				function(ret,err){

@@ -24,7 +24,7 @@ table tr{height:30px;}
 
 .fangzhu{margin-top:20px;width:100%}
 .fangzhu tr{height:40px;}
-.fangzhu .label{vertical-align: middle;}
+.fangzhu .label{vertical-align: middle;text-align: left;}
 .callBtn{
 	float: right;
   height: 16px;margin-right:10px;}
