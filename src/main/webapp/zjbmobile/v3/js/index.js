@@ -68,7 +68,7 @@ var header,
             rect: {
                 x: mainPos.l+1,
                 y: headerPos.h,
-                w: headerPos.w,
+                w: 'auto',
                 h: mainPos.h
             }
         });
@@ -167,7 +167,7 @@ var header,
             rect: {
                 x: mainPos.l+1,
                 y: y,
-                w: headerPos.w,
+                w: 'auto',
                 h: h
             }
         });

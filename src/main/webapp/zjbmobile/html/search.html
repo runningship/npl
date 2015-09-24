@@ -261,7 +261,7 @@ getCityInfo(function(city){
 }
 apiready=function(){
 	getUserInfo(function(user){
-		if(user.fufei){
+		if(user && user.fufei){
 			$('#others').css('display','');
 			$('#tel').css('display','');
 		}

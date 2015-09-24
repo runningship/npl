@@ -59,6 +59,16 @@ function doLogin(){
 			        pageParam: ret,
 					url: 'ucenter.html'
 			    });
+			    setTimeout(function(){
+			    	api.closeWin({
+					    name: 'login',
+					    animation: {
+					        type: 'none',
+					        duration: 0
+					    }
+					});
+			    },1000);
+			    
 		}else{
 			alert(ret.msg);
 		}
@@ -109,7 +119,7 @@ apiready=function(){
     		method:'get',
     		cache:false
     	},function(ret , err){
-    		if(ret && ret.iosOnline){
+    		if(ret && ret.iosShenHeVersion!=api.appVersion){
     			$('#login').css('display','');
     		}else{
     			

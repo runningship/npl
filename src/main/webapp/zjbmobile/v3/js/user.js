@@ -1,8 +1,5 @@
 var payWay='offline';
 apiready=function(){
-	api.closeWin({
-		name:'login'
-    });
 	getUserInfo(function(user){
 		$('#uname').text(user.uname);
 		$('#tel').text(user.tel);
@@ -10,9 +7,12 @@ apiready=function(){
 		if(api.systemType=='ios' && payWay!='online'){
 			//ios版离线支付方式
 			$('#bottomIOS').css("display","");
-			$('#deadTimeWrap').css('display','none');
+			
 		}else{
 			$('#bottomAll').css("display","");
+		}
+		if(api.systemType=='ios' && api.appVersion==user.iosShenHeVersion){
+			$('#deadTimeWrap').css('display','none');
 		}
 		if(user.lname){
 			$('#lname').text(user.lname);
@@ -39,12 +39,25 @@ apiready=function(){
 	});
 }
 
-function updateDeadtime(){
-	getUserInfo(function(user){
-		$('#deadtime').text(user.mobileDeadtime);
+function updateDeadtime(uid){
+	YW.ajax({
+		url:'http://'+server_host+'/c/mobile/user/getMobileDeadtime?uid='+uid,
+		method:'get',
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		$('#deadtime').text(ret.mobileDeadtime);
 	});
+//	getUserInfo(function(user){
+//		$('#deadtime').text(user.mobileDeadtime);
+//	});
 }
 function closexx(){
+//	api.execScript({
+//	    name: 'login',
+//	    script: 'closexx();'
+//	});
+	
 	api.closeWin({
 	   name: 'user'
 	});

@@ -6,7 +6,17 @@ var uid;
     var packageInfo;
     var info;
     var amount =100;
+    var addingRecord=false;
 	apiready = function(){
+		api.addEventListener({
+		    name:'keyback'
+		},function(ret,err){
+		    if(addingRecord){
+				alert('操作进行中，请稍后..');
+			}else{
+				closexx();	
+			}
+		});
 		getUserInfo(function(user){
 			userInfo = user;
 			uid = user.uid;
@@ -16,6 +26,9 @@ var uid;
 	};
 	
 	function closexx(){
+		if(addingRecord){
+			return;
+		}
 		api.closeWin({
 		    name: 'order'
 	    });
@@ -25,20 +38,65 @@ function aliPayIOS(){
 	var subject = '中介宝手机版费用'+userInfo.tel;
 	var body = '中介宝手机版费用'+userInfo.tel;
 	
-	var url = 'http://'+server_host+'/v/pay/submit.html?defaultbank=CMB&uid='+userInfo.uid+'&notify_url=http://'+server_host+'/v/pay/return_url.html&return_url=http://'+server_host+'/v/pay/return_url.html&seller_email=912958811@qq.com&out_trade_no='+new Date().getTime()+'&subject='+subject+'&clientType=mobile&total_fee=0.01&body='+body;
-	blockAlert(url);
-	api.openWin({
-	    name: 'aliWebPay',
-		url: url
+	var url = 'http://'+server_host+'/pay/mobile/alipayapi.jsp?&uid='+userInfo.uid+'&monthAdd='+addMonth+'&WIDout_trade_no='+new Date().getTime()+'&WIDsubject='+subject+'&WIDtotal_fee=0.01&WIDbody='+body;
+	api.openApp({
+	    androidPkg: 'android.intent.action.VIEW',
+//		iosUrl : url,
+	    mimeType: 'text/html',
+	    uri: url
+	},function(ret,err){
+	    api.confirm({
+		    msg: '支付完成',
+		    buttons:['确定']
+		},function(ret,err){
+		    api.execScript({
+			    name: 'user',
+			    script: 'updateDeadtime('+uid+');'
+			});
+			closexx();
+		});
+	});
+//	api.openWin({
+//	    name: 'aliWebPay',
+//		url: url
+//	});
+}
+
+function refreshUserInfo(){
+	YW.ajax({
+		url: 'http://'+server_host+'/c/mobile/user/getUserFufeiInfo?uid='+userInfo.uid,
+		method:'get',
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret){
+			userInfo.mobileDeadtime = ret.mobileDeadtime;
+			userInfo.fufei = ret.fufei;
+			api.setPrefs({
+	            key:'user',
+	            value:JSON.stringify(userInfo)
+            });
+			
+			//更新user页面的服务到期时间
+			api.setPrefs({
+			    key:'user',
+			    value:JSON.stringify(userInfo)
+		    });
+			api.execScript({
+			    name: 'user',
+			    script: 'updateDeadtime('+uid+');'
+			});
+			closexx();
+		}
 	});
 }
-	
+
 function aliPay(){
 	
-//	if(api.systemType=='ios'){
-//		aliPayIOS();
-//		return;
-//	}
+	if(api.systemType=='android'){
+		aliPayIOS();
+		return;
+	}
 	var obj = api.require('aliPay');
 	var subject = '中介宝手机版费用'+userInfo.tel;
 	var body = '中介宝手机版费用'+userInfo.tel;
@@ -59,7 +117,7 @@ function aliPay(){
 	    subject:subject,
 	    body:body,
 	    //amount:amount,
-	    amount: amount,
+	    amount: 0.01,
 	    tradeNO:tradeNO
 	},function(ret,err) {
 		if(ret.statusCode=='9000' ){
@@ -100,12 +158,16 @@ function getFeeInfo(){
 		}
 	});
 }
-function addChargeRecord(monthAdd , fee){
-	var tradeNO = new Date().getTime();
+function addChargeRecord(monthAdd , fee , tradeNO){
+	addingRecord=true;
+	if(!tradeNO){
+		tradeNO = new Date().getTime();
+	}
 	YW.ajax({
 		url: 'http://'+server_host+'/c/mobile/user/paySuccess',
 		method:'post',
 		cache:false,
+		timeout:20,
 		data:{values:{
 			monthAdd:monthAdd,userId:uid,uname:uname,tradeNO:tradeNO,fee:fee,payType:payType
 		}},
@@ -126,7 +188,7 @@ function addChargeRecord(monthAdd , fee){
 		    });
 			api.execScript({
 			    name: 'user',
-			    script: 'execFrameScript("userFrame","updateDeadtime();");'
+			    script: 'updateDeadtime('+uid+');'
 			});
 			//到支付成功页面
 			api.openWin({
@@ -137,11 +199,12 @@ function addChargeRecord(monthAdd , fee){
 				url: 'payOK.html',
 		        bgColor: '#fff'
 		    });
+		    addingRecord=false;
 			closexx();
 		}else{
-			alert('重试同步数据..');
+			alert('重试同步数据..请勿操作');
 			setTimeout(function(){
-				addChargeRecord(monthAdd , fee);
+				addChargeRecord(monthAdd , fee , tradeNO);
 			},1000);
 		}
 	});

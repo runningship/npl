@@ -8,8 +8,8 @@
     <link href="../v3/css/reset.css" rel="stylesheet">
 	<link href="../v3/css/style.css" rel="stylesheet">
 </head>
-<body>
-    <div id="wrap">
+<body style="100%">
+    <div id="wrap" style="width:100%">
         <div id="header" class="header" style="width:100%">
             <span class="left">
 	            <a onclick="closexx();" class="btns"><i class="iconfont">&#xe628;</i></a>
@@ -57,8 +57,8 @@ var header,
             rect: {
                 x: 0,
                 y: headerPos.h,
-                w: headerPos.w,
-                h: mainPos.h
+                w: 'auto',
+                h: 'auto'
             }
         });
         
