@@ -3,7 +3,12 @@ package org.bc.npl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Question {
+import org.bc.npl.entity.Fact;
+import org.bc.npl.entity.Question;
+import org.bc.sdak.CommonDaoService;
+import org.bc.sdak.SimpDaoTool;
+
+public class QuestionUtil {
 
 	private static List<String> words = new ArrayList<String>();
 	static{
@@ -20,6 +25,19 @@ public class Question {
 		return words.contains(word);
 	}
 	
+	public static void moveToQuestion(int sentenceId){
+		CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
+		List<Fact> facts = dao.listByParams(Fact.class, "from Fact where sentenceId=?", sentenceId);
+		for(Fact fact : facts){
+			Question q = new Question();
+			q.answered = 0;
+			q.x = fact.x;
+			q.f = fact.f;
+			q.y = fact.y;
+			q.sentenceId = fact.sentenceId;
+			dao.saveOrUpdate(q);
+		}
+	}
 	public static List<Subject> toQuery(Subject sbj){
 		List<Subject> result = new ArrayList<Subject>();
 		result.add(0,sbj);

@@ -55,7 +55,7 @@ public class Parser {
 			List<Map> list2 = dao.listAsMap("select op.priority as priority from Oper op , Aggregation aggr where op.text=aggr.sets and elem=? " , words.get(i));
 			if(oper!=null){
 				//不用<=意味着同一操作符，后面的低于前面的
-				if(oper.priority<=priority){
+				if(oper.priority<priority){
 					priority = oper.priority;
 					pos = i;
 					continue;

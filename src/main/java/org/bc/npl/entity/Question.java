@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Fact {
+public class Question {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -19,4 +19,6 @@ public class Fact {
 	public String y;
 	
 	public Integer sentenceId;
+	
+	public Integer answered;
 }

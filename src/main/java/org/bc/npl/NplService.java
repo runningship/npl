@@ -8,10 +8,12 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.bc.npl.core.Block;
+import org.bc.npl.core.Caculator2;
 import org.bc.npl.core.Lexer;
 import org.bc.npl.core.Parser;
 import org.bc.npl.entity.Aggregation;
 import org.bc.npl.entity.Fact;
+import org.bc.npl.entity.Sentence;
 import org.bc.npl.util.DataHelper;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
@@ -24,7 +26,6 @@ public class NplService {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
-	private static Context  context = new Context();
 	@WebMethod
 	public ModelAndView tokenTree(String text){
 		ModelAndView mv = new ModelAndView();
@@ -54,9 +55,22 @@ public class NplService {
 //		buildFact(block ,context);
 		List<Subject> subjectList = parseBlock(block);
 //		context.addSubject(subjectList.get(0));
+		Caculator2 cacu = new Caculator2();
+		//new sentence
+		int sid = onNewSentence(text);
+		cacu.eval(subjectList.get(0) , sid , 123);
 		return mv;
 	}
 	
+	
+	private int onNewSentence(String text) {
+		Sentence sen = new Sentence();
+		sen.text = text;
+		dao.saveOrUpdate(sen);
+		return sen.id;
+	}
+
+
 	//TODO 在运行parseBlock之前要先检测有没有必要的谓词，如果没有就要先行联想补充完整
 	private List<Subject> parseBlock(Block block){
 		List<Subject> result = new ArrayList<Subject>();
@@ -88,7 +102,8 @@ public class NplService {
 			left.get(0).instances.add(right.get(0));
 			//或者
 			right.get(0).instances.add(left.get(0));
-			
+			//亦或者
+			//left.get(0).deList.add(right.get(0));
 			return left;
 		}
 		if("和".equals(block.text)){
