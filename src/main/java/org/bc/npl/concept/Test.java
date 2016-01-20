@@ -11,14 +11,13 @@ public class Test {
 //		list.add(new 天());
 //		list.add(new 上());
 		
-		process(new 天() , new 上());
 	}
 
 	private static void process(Expect obj1, Expect obj2) {
-		for(WordHandler handler : obj1.getExpectings()){
-			if(obj2.getClass().isAssignableFrom(handler.getTargetClass())){
-				handler.process(obj2);
-			}
-		}
+//		for(WordHandler handler : obj1.getExpectings()){
+//			if(obj2.getClass().isAssignableFrom(handler.getTargetClass())){
+//				handler.process(obj2);
+//			}
+//		}
 	}
 }

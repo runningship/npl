@@ -5,8 +5,8 @@ import java.util.List;
 
 
 public interface Expect {
-	default List<WordHandler<?>> getExpectings(){
-		List<WordHandler<?>> list =new ArrayList<WordHandler<?>>();
-		return list;
-	}
+//	default List<WordHandler<?>> getExpectings(){
+//		List<WordHandler<?>> list =new ArrayList<WordHandler<?>>();
+//		return list;
+//	}
 }

@@ -7,6 +7,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.jsp.JspFactory;
 
+import org.bc.cache.ConfigCache;
 import org.bc.sdak.SQL2008Dialect;
 import org.bc.sdak.SessionFactoryBuilder;
 import org.bc.web.ModuleManager;
@@ -53,10 +54,10 @@ public class StartUpListener implements ServletContextListener{
 		settings.put(AvailableSettings.USE_SECOND_LEVEL_CACHE, "true");
 		
 //		settings.put(AvailableSettings.PROXOOL_XML, "proxool.xml");//相对目录为classes
-		settings.put(AvailableSettings.PROXOOL_XML, "proxool.xml");//相对目录为classes
+		settings.put(AvailableSettings.PROXOOL_XML, ConfigCache.get("proxool_xml", "proxool.xml"));//相对目录为classes
 		settings.put(AvailableSettings.PROXOOL_EXISTING_POOL, "false");
 		settings.put(AvailableSettings.PROXOOL_POOL_ALIAS, "npl");
 		SessionFactoryBuilder.applySettings(settings);
-		settings.put("annotated.packages", "org.bc.npl");
+		settings.put("annotated.packages", "org.bc.npl;org.bc.textreco");
 	}
 }
