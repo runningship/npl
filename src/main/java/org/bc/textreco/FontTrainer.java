@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.bc.npl.StartUpListener;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.textreco.entity.Eigen;
@@ -29,9 +30,12 @@ public class FontTrainer {
 	}
 	
 	public static void main(String[] args) throws IOException{
+		StartUpListener.initDataSource();
 		FontTrainer trainer = new FontTrainer();
-		char ch='A';
-		BufferedImage img = ImageIO.read(new File("D:\\code\\text-reco\\std\\chars\\yahei\\normal\\"+(int)ch+".jpg"));
-		trainer.learn(img, String.valueOf(ch));
+		for(int i=48;i<=57;i++){
+			BufferedImage img = ImageIO.read(new File("D:\\code\\text-reco\\std\\chars\\yahei\\normal\\"+i+".jpg"));
+			trainer.learn(img, String.valueOf((char)i));
+		}
+		
 	}
 }
