@@ -3,7 +3,7 @@ package org.bc.textreco;
 public class Eigenvalue {
 
 	//没一个概率值精确的位数
-	private int weishu=8;
+	private int weishu=3;
 	//上下左右
 	public float up;
 	public float left;
