@@ -58,6 +58,7 @@ public class StartUpListener implements ServletContextListener{
 		settings.put(AvailableSettings.PROXOOL_EXISTING_POOL, "false");
 		settings.put(AvailableSettings.PROXOOL_POOL_ALIAS, "npl");
 		SessionFactoryBuilder.applySettings(settings);
-		settings.put("annotated.packages", "org.bc.npl;org.bc.textreco");
+		//org.bc.npl;org.bc.textreco;
+		settings.put("annotated.packages", "org.bc.participle.entity");
 	}
 }
