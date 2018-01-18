@@ -22,12 +22,14 @@ public class SentenceManager {
 		stopTokens.add('!');
 		stopTokens.add(')');
 		stopTokens.add('(');
+		stopTokens.add(':');
 		
 		stopTokens.add('，');
 		stopTokens.add('。');
 		stopTokens.add('；');
 		stopTokens.add('！');
 		stopTokens.add('？');
+		stopTokens.add('：');
 //		stopTokens.add('）');
 //		stopTokens.add('（');
 		

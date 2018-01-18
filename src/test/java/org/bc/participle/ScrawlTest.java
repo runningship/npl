@@ -21,11 +21,21 @@ public class ScrawlTest {
 		ScrawlService ss = new ScrawlService();
 		ss.startScrawlContent();
 	}
+	
+	@Test
+	public void testStartScrawlContentUntiEnd() throws Exception{
+		StartUpListener.initDataSource();
+		ScrawlService ss = new ScrawlService();
+		int count = 0;
+		do{
+			count = ss.startScrawlContent();
+		}while(count>0);
+	}
+	
 	@Test
 	public void testScrawlLinks(){
 		StartUpListener.initDataSource();
 		ScrawlService ss = new ScrawlService();
-		
 		ss.startScrawlLinks();
 	}
 }

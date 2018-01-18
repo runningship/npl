@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Line {
+public class GuessedWord {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -20,11 +20,7 @@ public class Line {
 	
 	public Integer score;
 	
-	public String sentence;
-	
 	public Integer articleId;
-	
-	public transient int  index;
 
 	@Override
 	public String toString() {

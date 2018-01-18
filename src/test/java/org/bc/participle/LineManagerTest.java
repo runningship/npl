@@ -11,6 +11,7 @@ public class LineManagerTest {
 	@Test
 	public void testSaveLineFromString(){
 		StartUpListener.initDataSource();
+		ThreadSessionHelper.setDbType(ThreadSessionHelper.H2_Db);
 		TokenManager tm = new TokenManager();
 		List<String> tokens = tm.parseTokenFromSentence("电站于1966年6月施工");
 		PrintUtils.printList(tokens);

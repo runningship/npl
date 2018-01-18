@@ -16,6 +16,8 @@ public class Article {
 	
 	public Integer crawTargetId;
 
+	public String title;
+	
 	public String text;
 	
 	public String link;
@@ -25,5 +27,10 @@ public class Article {
 	public Integer trainAccount;
 	
 	public Date lastTrainTime;
+	
+	/**
+	 * 兴趣度
+	 */
+	public Float interest;
 	
 }

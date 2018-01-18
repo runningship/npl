@@ -37,12 +37,15 @@ public class ScrawlService{
         dao.saveOrUpdate(ct);
     }
     
-    public void startScrawlContent() throws Exception{
+    public int startScrawlContent() throws Exception{
     	Page<ScrawlTarget> page = new Page<ScrawlTarget>();
+    	page.setPageSize(50);
     	page = dao.findPage(page, "from ScrawlTarget where contentScrawlStatus = ? or contentScrawlStatus is null", 0);
     	for(ScrawlTarget target : page.result){
     		scrawlContent(target);
+    		System.out.println("抓取 "+target.title+" 完成");
     	}
+    	return page.result.size();
     }
     
     @Transactional
@@ -53,13 +56,19 @@ public class ScrawlService{
         if(StringUtils.isEmpty(body)){
             System.out.println();
         }
-        //要判断重复
-        Article article = new Article();
-        article.addtime = new Date();
-        article.link = ct.link;
-        article.text = body;
-        dao.saveOrUpdate(article);
+        
+        Article po = dao.getUniqueByKeyValue(Article.class, "crawTargetId", ct.id);
+        if(po==null){
+        	Article article = new Article();
+            article.addtime = new Date();
+            article.link = ct.link;
+            article.text = body;
+            article.title = ct.title;
+            article.crawTargetId = ct.id;
+            dao.saveOrUpdate(article);
+        }
         ct.contentScrawlStatus = 1;
+        dao.saveOrUpdate(ct);
     }
     
     public void startScrawlLinks(){

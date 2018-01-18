@@ -52,19 +52,22 @@ public class LineManager {
 		return lines;
 	}
 
-	public void saveLine(Line line) {
+	public int saveLine(Line line) {
+//		ThreadSessionHelper.setDbType(ThreadSessionHelper.H2_Db);
 		Line po = dao.getUniqueByParams(Line.class, new String[] { "name",
 		"articleId" }, new Object[] { line.name, line.articleId });
 		try {
 			if (po == null) {
-				line.score = 1;
+				line.score = line.score;
 				dao.saveOrUpdate(line);
+				return 1;
 			} else {
-				po.score++;
-				dao.saveOrUpdate(po);
+				return 0;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return 0;
 		}
+//		ThreadSessionHelper.restore();
 	}
 }

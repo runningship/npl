@@ -35,4 +35,36 @@ public class TokenUtils {
 		}
 		return sb.toString();
 	}
+	
+    private static boolean isChineseByScript(char c) {  
+        Character.UnicodeScript sc = Character.UnicodeScript.of(c);  
+        if (sc == Character.UnicodeScript.HAN) {  
+            return true;  
+        }  
+        return false;  
+    }  
+    
+    // 完整的判断中文汉字和符号
+    public static boolean isChinese(String strName) {
+        char[] ch = strName.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            char c = ch[i];
+            if (!isChineseByScript(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean isChinesePuctuation(char c) {  
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);  
+        if (ub == Character.UnicodeBlock.GENERAL_PUNCTUATION  
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION  
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS  
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_FORMS  
+                || ub == Character.UnicodeBlock.VERTICAL_FORMS) {//jdk1.7  
+            return true;  
+        }  
+        return false;  
+    }
 }
