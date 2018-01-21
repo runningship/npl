@@ -23,14 +23,20 @@ public class TokenManager {
 		stopTokens.add('【');
 		stopTokens.add('】');
 		stopTokens.add('-');
-		
+		stopTokens.add('"');
+		stopTokens.add('《');
+		stopTokens.add('》');
+			
 		stopTokens.add('(');
 		stopTokens.add(')');
 		stopTokens.add(':');
 		stopTokens.add('[');
 		stopTokens.add(']');
 		stopTokens.add('-');
+		stopTokens.add('ˉ');
 		stopTokens.add(' ');
+		stopTokens.add('“');
+		stopTokens.add('”');
 	}
 	
 	public List<String> parseTokenFromSentence(String text){

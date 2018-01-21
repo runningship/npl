@@ -54,6 +54,11 @@ public class SentenceManager {
 				}
 			}
 		}
+		String str =text.substring(start); 
+		str = str.trim();
+		if(!StringUtils.isBlank(str)){
+			result.add(str);
+		}
 		return result;
 	}
 }

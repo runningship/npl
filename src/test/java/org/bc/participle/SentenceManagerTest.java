@@ -1,22 +1,26 @@
 package org.bc.participle;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.bc.npl.StartUpListener;
 import org.bc.participle.entity.Article;
 import org.bc.participle.entity.Line;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.Page;
 import org.bc.sdak.TransactionalServiceHelper;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SentenceManagerTest {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
+	@Before
+	public void init(){
+		StartUpListener.initDataSource();
+		GuessedWordCache.loadCache();
+	}
 	@Test
 	public void testParseSentenceFromText() throws IOException{
 		Article article = dao.get(Article.class, 95);
@@ -27,36 +31,42 @@ public class SentenceManagerTest {
 	
 	@Test
 	public void testParseLinesFromText() throws IOException{
-		StartUpListener.initDataSource();
 		PplManager pm = new PplManager();
 		//ThreadSessionHelper.setDbType(ThreadSessionHelper.Sql_Server_Db);
-		Article article = dao.get(Article.class, 95);
+		Article article = dao.get(Article.class, 2284);
 		List<Line> lines = pm.parseLinesFromText(article);
 		PrintUtils.printlnList(lines);
 	}
 	
 	@Test
-	public void testTrainSingleArticle() throws IOException{
-		StartUpListener.initDataSource();
+	public void testTrainSingleArticle() throws IOException, DuplicateTrainingException{
 		PplManager pm = new PplManager();
-		Article article = dao.get(Article.class, 95);
+		Article article = dao.get(Article.class, 2284);
 		pm.parseLinesAndSave(article);
 	}
 	
 	@Test
-	public void testTrainByArticles(){
-		StartUpListener.initDataSource();
+	public void testTrainArticles() throws OverTrainedException{
 		trainArticlesByPage();
 	}
 	
-	private int trainArticlesByPage(){
+	private int trainArticlesByPage() throws OverTrainedException{
 		Page<Article> page = new Page<Article>();
+		GuessWordManager gwm = new GuessWordManager();
 //		page = dao.findPage(page, "from Article where trainAccount is null or trainAccount=?",0);
-		page = dao.findPage(page, "from Article order by trainAccount asc, interest desc");
+		page = dao.findPage(page, "from Article where trainOver=0 order by trainAccount asc, interest desc");
 		PplManager pm = new PplManager();
 		int savedCount = 0;
+		if(page.result.isEmpty()){
+			throw new OverTrainedException();
+		}
 		for(Article article : page.result){
-			savedCount = pm.parseLinesAndSave(article);
+			try {
+				savedCount = pm.parseLinesAndSave(article);
+			} catch (DuplicateTrainingException e) {
+				gwm.doGuess();
+				GuessedWordCache.refresh();
+			}
 		}
 		return savedCount;
 	}
@@ -64,9 +74,12 @@ public class SentenceManagerTest {
 	@Test
 	public void testTrainAllArticles(){
 		StartUpListener.initDataSource();
-		int count = 0;
-		do{
-			count = trainArticlesByPage();
-		}while(count>0);
+		while(true){
+			try {
+				trainArticlesByPage();
+			} catch (OverTrainedException e) {
+				return;
+			}
+		}
 	}
 }

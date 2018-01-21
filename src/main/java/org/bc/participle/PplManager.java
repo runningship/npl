@@ -37,10 +37,12 @@ public class PplManager {
 		}
 		
 		List<String> sentenceList = sm.parseSentenceFromText(article.text);
-		for(String sentence : sentenceList){
+		for(int i = 0;i<sentenceList.size();i++){
+			String sentence = sentenceList.get(i);
 			List<String> tokens = tm.parseTokenFromSentence(sentence);
 			LineManager lm = new LineManager();
 			lines.addAll(lm.parseLinesFromTokens(tokens));
+//			System.out.println("共"+sentenceList.size()+"句子,当前处理"+i);
 		}
 		return lines;
 	}
@@ -48,15 +50,25 @@ public class PplManager {
 	 * 返回产生新词数量
 	 * @param article
 	 * @return
+	 * @throws DuplicateTrainingException 
 	 */
-	public int parseLinesAndSave(Article article){
+	public int parseLinesAndSave(Article article) throws DuplicateTrainingException{
 		System.out.println("开始训练:"+article.title);
 		if(StringUtils.isEmpty(article.text)){
 			dao.delete(article);
 			return 0;
 		}
 		List<Line> lines = parseLinesFromText(article);
-		List<Line> reducedLines = reduceLines(lines);
+		List<Line> reducedLines = null;
+		try {
+			reducedLines = reduceLines(lines);
+		} catch (OverTrainedException e) {
+			article.trainOver = 1;
+			dao.saveOrUpdate(article);
+			System.out.println("文章"+article.title+",训练完成无新词产出");
+			return 0;
+		}
+		
 		int batch = reducedLines.size()/100;
 		if(batch==0){
 			batch=1;
@@ -94,8 +106,9 @@ public class PplManager {
 	/**
 	 * 归并，把多个相同的归并成一个，只是score加起来
 	 * @return 
+	 * @throws OverTrainedException 
 	 */
-	private List<Line> reduceLines(List<Line> lines){
+	private List<Line> reduceLines(List<Line> lines) throws OverTrainedException{
 		Map<String , Line> map = new HashMap<String , Line>();
 		for(int i=0;i<lines.size();i++){
 			Line line = lines.get(i);
@@ -132,16 +145,21 @@ public class PplManager {
 			}
 		});
 		if(tmp.isEmpty()){
-			return result;
+			throw new OverTrainedException();
 		}
-		// 只取前1个
-		result.add(tmp.get(0));
-//		for(int i=0;i<tmp.size();i++){
-//			if(i>=10){
-//				break;
-//			}
-//			result.add(tmp.get(i));
-//		}
+		if(tmp.get(0).score<=GuessWordManager.Guessed_Word_Score_Threshold){
+			throw new OverTrainedException();
+		}
+		// 获取第一个不存在于GuessedWord中的,并且没有非中文字符的词组,并且score>10
+		for(Line line : tmp){
+			if(!GuessedWordCache.isExsistInGuessedWord(line.name) && TokenUtils.isChinese(line.name) && line.score>GuessWordManager.Guessed_Word_Score_Threshold){
+				result.add(line);
+				break;
+			}
+		}
+		if(result.isEmpty()){
+			throw new OverTrainedException();
+		}
 		return result;
 	}
 }
